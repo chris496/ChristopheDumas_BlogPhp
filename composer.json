@@ -1,0 +1,17 @@
+{
+    "name": "chris/christophe-dumas_blog-php",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "app\\blog": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Christophe Dumas",
+            "email": "tit496@hotmail.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
