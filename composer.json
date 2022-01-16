@@ -3,7 +3,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "app\\blog\\": "app/"
+            "app\\blog\\": "app/",
+            "app\\blog\\Model\\": "app/Model"
         }
     },
     "authors": [
