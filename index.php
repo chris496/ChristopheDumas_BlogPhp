@@ -1,9 +1,10 @@
 <?php
 
+
 require('./vendor/autoload.php');
 
-use app\blog\Model\PostManager;
+require './app/Controller/Post.php';
 
-$test = new PostManager;
-$dis = $test->getPosts();
+$test = new Post();
+$dis = $test->allPosts();
 var_dump($dis);
