@@ -4,7 +4,8 @@
     "autoload": {
         "psr-4": {
             "app\\blog\\": "app/",
-            "app\\blog\\Model\\": "app/Model"
+            "app\\blog\\Model\\": "app/Model",
+            "app\\blog\\Controller\\": "app/Controller"
         }
     },
     "authors": [
@@ -16,5 +17,8 @@
     "minimum-stability": "stable",
     "require-dev": {
         "symfony/var-dumper": "^5.4"
+    },
+    "require": {
+        "twig/twig": "^3.3"
     }
 }
