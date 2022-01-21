@@ -15,7 +15,13 @@ class Post extends Controller{
             'posts' => $posts
         ]);
         return $posts;
-
-
     }
+
+     //display a selected post
+     public function getOnePost(){
+         $postManager = new PostManager();
+         $post = $postManager->getPost($_GET['id']);
+
+         dd($post);
+     }
 }
