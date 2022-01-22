@@ -21,7 +21,9 @@ class Post extends Controller{
      public function getOnePost(){
          $postManager = new PostManager();
          $post = $postManager->getPost($_GET['id']);
-
-         dd($post);
+         $this->twig->display('onePost.html.twig', [
+            'post' => $post
+        ]);
+        return $post;
      }
 }
