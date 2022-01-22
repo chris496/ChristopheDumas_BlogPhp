@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="ms-2 mt-2">
+        <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+    </div>
+
+                <div class="col-md-4 m-5 mx-auto">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <img class="img-fluid rounded mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="..." />
+                            <div class="small text-muted d-flex justify-content-between">
+                                <div>{{ post.update_date | date('d/m/Y H:i') }}</div> 
+                                <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
+                            </div>
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <p class="card-text"><strong>{{ post.chapo }}</strong></p>
+                            <p class="card-text">{{ post.description }}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <a class="btn btn-primary btn-sm me-2" href="#!">Voir les commentaires</a>
+                            <a class="btn btn-primary btn-sm" href="#!">Ajouter un commentaire</a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+{% endblock %}
