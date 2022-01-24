@@ -1,6 +1,8 @@
 <?php
 namespace app\blog\Model;
 
+use DateTime;
+
 //use app\blog\Model\Model;
 
 class PostManager extends Model{
@@ -19,6 +21,15 @@ class PostManager extends Model{
         $post = $req->fetch();
         return $post;
     }
+
+    //create a new post
+    public function createPost($id, $title, $chapo, $description){
+            $req = $this->db->prepare('INSERT INTO post(fk_user_id, title, chapo, description, added_date) VALUES(:fk_user_id, :title, :chapo, :description, :create_at)');
+            $newPost = $req->execute(array('fk_user_id'=> $id,
+            'title'=> $title,
+            'chapo'=> $chapo,
+            'description'=> $description,
+            ':create_at'=> date('Y-m-d H:i:s')));
+            return $newPost;
+        }
 }
-
-
