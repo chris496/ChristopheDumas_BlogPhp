@@ -4,10 +4,12 @@ namespace App\blog\Model;
 
 require_once('./database.php');
 
-class Model{
+class Model
+{
     protected $db;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = dbConnect();
     }
 }

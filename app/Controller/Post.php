@@ -3,7 +3,8 @@ namespace App\blog\Controller;
 
 use App\blog\Model\PostManager;
 
-class Post extends Controller{
+class Post extends Controller
+{
 
     //display all posts
     public function allPosts()
@@ -18,12 +19,13 @@ class Post extends Controller{
     }
 
      //display a selected post
-     public function getOnePost(){
-         $postManager = new PostManager();
-         $post = $postManager->getPost($_GET['id']);
-         $this->twig->display('onePost.html.twig', [
+     public function getOnePost()
+    {
+        $postManager = new PostManager();
+        $post = $postManager->getPost($_GET['id']);
+        $this->twig->display('onePost.html.twig', [
             'post' => $post
         ]);
         return $post;
-     }
+    }
 }
