@@ -1,5 +1,5 @@
 <?php
-use app\blog\Controller\Post;
+use App\blog\Controller\Post;
 
 require('./vendor/autoload.php');
 

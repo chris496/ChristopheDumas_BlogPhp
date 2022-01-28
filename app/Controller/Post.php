@@ -1,7 +1,7 @@
 <?php
-namespace app\blog\Controller;
+namespace App\blog\Controller;
 
-use app\blog\Model\PostManager;
+use App\blog\Model\PostManager;
 
 class Post extends Controller{
 

@@ -1,5 +1,5 @@
 <?php
-namespace app\blog\Controller;
+namespace App\blog\Controller;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

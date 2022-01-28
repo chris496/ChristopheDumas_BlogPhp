@@ -1,6 +1,6 @@
 <?php
 
-namespace app\blog\Model;
+namespace App\blog\Model;
 
 require_once('./database.php');
 
