@@ -28,4 +28,12 @@ class Post extends Controller
         ]);
         return $post;
     }
+
+    //create a new post
+    public function createPost($id, $title, $chapo, $description)
+    {
+        $postManager = new PostManager();
+        $postManager->createPost($id, $title, $chapo, $description);
+         header('Location: index.php');
+    }
 }
