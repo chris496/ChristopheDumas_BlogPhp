@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <!-- Page Content-->
+    <div class="container px-4 px-lg-5">
+        <!-- Heading Row-->
+        <div class="row gx-4 gx-lg-5 align-items-center my-5">
+            <div class="col-lg-7">
+                <img class="img-fluid rounded mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="profile" />    
+            </div>    
+            <div class="col-lg-5">
+                <h1 class="font-weight-light">Bienvenue sur mon blog !</h1>
+                <h2 class="mb-0">
+                    Christophe
+                    <span class="text-primary">Dumas</span>
+                </h2>
+                <div class="subheading mb-3 mt-2">
+                    <a href="mailto:name@email.com">christophe.dumas1@gmail.com</a>
+                </div>
+                <p>Nouveau sur la planète des développeurs, je vous propose de partager mon expérience et de discuter des sujets d'actualités.</p>
+                <div>
+                    <a class="btn btn-info rounded-circle text-white" href="https://www.linkedin.com/in/christophe-dumas-92bb271b">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="btn btn-info rounded-circle text-white" href="https://github.com/chris496">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Call to Action-->
+        <div class="card text-white bg-secondary my-5 py-4 text-center">
+            <div class="card-body">
+                <h2 class="text-white m-0">Liste des messages !!</h2>
+            </div>
+        </div>
+        <!-- Content Row-->
+        <div class="row gx-4 gx-lg-5">
+            {% for post in posts %}
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="small text-muted">{{ post.update_date | date('d/m/Y H:i') }}</div>
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <p class="card-text"><strong>{{ post.chapo }}</strong></p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="index.php?action=getOnePost&amp;id={{ post.id }}">Voir détail</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

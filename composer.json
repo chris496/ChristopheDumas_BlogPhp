@@ -3,7 +3,9 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "app\\blog\\": "app/"
+            "App\\blog\\": "app/",
+            "App\\blog\\Model\\": "app/Model",
+            "App\\blog\\Controller\\": "app/Controller"
         }
     },
     "authors": [
@@ -15,5 +17,9 @@
     "minimum-stability": "stable",
     "require-dev": {
         "symfony/var-dumper": "^5.4"
+    },
+    "require": {
+        "twig/twig": "^3.3",
+        "symfony/dotenv": "^5.4"
     }
 }
