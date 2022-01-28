@@ -1,14 +1,16 @@
 <?php
-namespace app\blog\Controller;
+namespace App\blog\Controller;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-abstract class Controller{
+abstract class Controller
+{
     private $loader;
     protected $twig;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->loader = new FilesystemLoader(dirname(__DIR__).'\View\Templates');
 
         $this->twig = new Environment($this->loader);

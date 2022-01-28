@@ -1,17 +1,21 @@
 <?php
-use app\blog\Controller\Post;
+use App\blog\Controller\Post;
 
 require('./vendor/autoload.php');
 
-if (isset($_GET['action'])){
+if (isset($_GET['action']))
+{
     // Display all posts
-    if ($_GET['action'] == 'allposts'){
+    if ($_GET['action'] == 'allposts')
+    {
         $allPosts = new Post();
         $allPosts->allPosts();
     }
     //display a selected post
-    elseif ($_GET['action'] == 'getOnePost'){
-        if (isset($_GET['id']) && $_GET['id'] > 0){
+    elseif ($_GET['action'] == 'getOnePost')
+    {
+        if (isset($_GET['id']) && $_GET['id'] > 0)
+        {
             $getOnePost = new Post();
             $getOnePost->getOnePost();
         }
@@ -27,7 +31,8 @@ if (isset($_GET['action'])){
         }
     }
 }
-else{
+else
+{
     $allPosts = new Post();
     $allPosts->allPosts();
     dd( date('Y-m-d H:i:s'));
