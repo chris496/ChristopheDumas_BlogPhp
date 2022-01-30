@@ -17,4 +17,13 @@ class CommentManager extends Model
         ));
         return $newComment;
     }
+
+    //display comments for one post
+    public function getComments($postId)
+    {
+        $req = $this->db->prepare('SELECT * FROM comment WHERE fk_post_id = :id');
+        $req->execute(array('id' => $postId));
+        $comments = $req->fetchAll();
+        return $comments;
+    }
 }

@@ -2,6 +2,7 @@
 namespace App\blog\Controller;
 
 use App\blog\Model\PostManager;
+use App\blog\Model\CommentManager;
 
 class Post extends Controller
 {
@@ -23,8 +24,14 @@ class Post extends Controller
     {
         $postManager = new PostManager();
         $post = $postManager->getPost($_GET['id']);
+
+        // display comments of post
+        $commentsManager = new CommentManager();
+        $comments = $commentsManager->getComments($_GET['id']);
+
         $this->twig->display('onePost.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'comments' => $comments
         ]);
         return $post;
     }
