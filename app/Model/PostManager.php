@@ -19,7 +19,7 @@ class PostManager extends Model
     //display a selected post
     public function getPost($postId)
     {
-        $req = $this->db->prepare('SELECT lastname, firstname, title, chapo, description, post.update_date FROM user INNER JOIN post ON user.id = post.fk_user_id WHERE post.id = :id' );
+        $req = $this->db->prepare('SELECT lastname, firstname, post.id, title, chapo, description, post.update_date FROM user INNER JOIN post ON user.id = post.fk_user_id WHERE post.id = :id' );
         $req->execute(array('id'=> $postId));
         $post = $req->fetch();
         return $post;

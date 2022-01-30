@@ -11,5 +11,6 @@ class comment
         $commentManager = new CommentManager();
         $newComment = $commentManager->postComment($postId, $pseudo, $email, $description);
         header('Location: index.php?action=getOnePost&id=' . $postId);
+        return $newComment;
     }
 }
