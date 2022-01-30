@@ -10,7 +10,7 @@
             <img class="img-fluid rounded mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="..." />
                 <div class="small text-muted d-flex justify-content-between">
                     <div>{{ post.update_date | date('d/m/Y H:i') }}</div> 
-                    <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
+                    <div>Auteur : {{ post.firstname }} {{ post.id }} {{ post.lastname }}</div>
                 </div>
                 <h2 class="card-title">{{ post.title }}</h2>
                 <p class="card-text"><strong>{{ post.chapo }}</strong></p>
@@ -19,7 +19,21 @@
         <div class="card-footer d-flex justify-content-center">
             <a class="btn btn-primary btn-sm me-2" href="#!">Voir les commentaires</a>
             <a class="btn btn-primary btn-sm" href="#!">Ajouter un commentaire</a>
-        </div>     
+        </div>  
+        <h2>Créer un commentaire</h2>
+
+    <form action="index.php?action=createComment&amp;id={{ post.id }}" method="post">
+    <label for="pseudo">pseudo :</label>
+    <input type="text" id="pseudo" name="pseudo">
+
+    <label for="email">email :</label>
+    <input type="email" id="email" name="email">
+
+    <label for="description">description :</label>
+    <input type="text" id="description" name="description">
+
+    <input type="submit"/>
+    </form>   
     </div>
 </div>
 {% endblock %}

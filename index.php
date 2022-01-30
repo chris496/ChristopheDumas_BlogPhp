@@ -1,4 +1,6 @@
 <?php
+
+use App\blog\Controller\Comment;
 use App\blog\Controller\Post;
 
 require('./vendor/autoload.php');
@@ -28,6 +30,22 @@ if (isset($_GET['action']))
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
+        }
+    }
+    //create a comment
+    elseif ($_GET['action'] == 'createComment'){
+        if (isset($_GET['id']) && $_GET['id'] > 0)
+        {
+            if (!empty($_POST['pseudo']) && !empty($_POST['email'] ) && !empty($_POST['description'] )){
+                $createComment = new Comment();
+                $createComment->createComment($_GET['id'], $_POST['pseudo'], $_POST['email'], $_POST['description']);
+            }
+            else{
+                echo 'tous les champs ne sont pas remplis !';
+            }
+        }
+        else {
+            echo 'Erreur : aucun identifiant de post envoyé';
         }
     }
 }
