@@ -1,6 +1,6 @@
 <?php
 
-use App\blog\Model\Model;
+namespace App\blog\Model;
 
 class UserManager extends Model
 {
