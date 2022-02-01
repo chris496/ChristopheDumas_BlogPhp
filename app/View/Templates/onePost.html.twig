@@ -17,28 +17,43 @@
                 <p class="card-text">{{ post.description }}</p>
         </div>
         <div class="card-footer d-flex justify-content-center">
-            <a class="btn btn-primary btn-sm me-2" href="#!">Voir les commentaires</a>
-            <a class="btn btn-primary btn-sm" href="#!">Ajouter un commentaire</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Ajouter un commentaire
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Créer un commentaire</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="index.php?action=createComment&amp;id={{ post.id }}" method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="pseudo" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" type="email" id="email" name="email" placeholder="email" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>   
+                            <div class="input-group">
+                                <span class="input-group-text">Votre message</span>
+                                <textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
+                            </div>
+                            <div class="text-center mt-3">
+                                <input class="btn btn-primary" type="submit"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>     
+        <div>
+            {% for comment in comments %}
+            <div> {{ comment.description }}</div>  
+            {% endfor %}
         </div>  
-        <h2>Créer un commentaire</h2>
-
-    <form action="index.php?action=createComment&amp;id={{ post.id }}" method="post">
-    <label for="pseudo">pseudo :</label>
-    <input type="text" id="pseudo" name="pseudo">
-
-    <label for="email">email :</label>
-    <input type="email" id="email" name="email">
-
-    <label for="description">description :</label>
-    <input type="text" id="description" name="description">
-
-    <input type="submit"/>
-    </form> 
-    <div>
-    {% for comment in comments %}
-           <div> {{ comment.description }}</div>  
-    {% endfor %}
-    </div>  
     </div>
 </div>
 
