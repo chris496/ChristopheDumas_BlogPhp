@@ -5,16 +5,31 @@ namespace App\blog\Model;
 class UserManager extends Model
 {
     //user registration
-    public function userRegistration($firstname, $lastname, $email, $password)
+    public function userRegistration($lastname, $firstname, $email, $password)
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $req = $this->db->prepare('INSERT INTO user(firstname, lastname, email, password) VALUES(?,?,?,?,?)');
+        $req = $this->db->prepare('INSERT INTO user(lastname, firstname, email, password) VALUES(?,?,?,?)');
         $newUser = $req->execute(array(
+            $lastname,
             $firstname, 
-            $lastname, 
             $email, 
             $hash,
         ));
         return $newUser;
+
+        /*
+        {
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $req = $this->db->prepare('INSERT INTO user(lastname, firstname, email, password) VALUES(:lastname, :firstname, :email, :password, :create_at)');
+        $newUser = $req->execute(array(
+            'lastname'=> $lastname,
+            'firstname'=> $firstname,
+            'email'=> $email,
+            'password'=> $hash,
+            ':create_at'=> date('Y-m-d H:i:s')
+        ));
+        return $newUser;
+    }
+    */
     }
 }
