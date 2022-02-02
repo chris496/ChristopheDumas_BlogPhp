@@ -2,6 +2,7 @@
 
 use App\blog\Controller\Comment;
 use App\blog\Controller\Post;
+use App\blog\Controller\User;
 
 require('./vendor/autoload.php');
 
@@ -46,6 +47,23 @@ if (isset($_GET['action']))
         }
         else {
             echo 'Erreur : aucun identifiant de post envoyé';
+        }
+    }
+    //page registration
+    elseif ($_GET['action'] == 'registration')
+    {
+        $user = new User();
+        $user->pageRegistration();
+    }
+    //user registration
+    elseif ($_GET['action'] == 'userRegistration')
+    {
+        if (!empty(!empty($_POST['lastname'] ) && $_POST['firstname']) && !empty($_POST['email'] ) && !empty($_POST['password'] )){
+            $newUser = new User();
+            $newUser->userRegistration($_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['password']);
+        }
+        else{
+            echo 'tous les champs ne sont pas remplis !';
         }
     }
 }
