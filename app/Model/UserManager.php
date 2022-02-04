@@ -16,7 +16,7 @@ class UserManager extends Model
             $hash,
         ));
         return $newUser;
-
+    }
         /*
         {
         $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -29,7 +29,15 @@ class UserManager extends Model
             ':create_at'=> date('Y-m-d H:i:s')
         ));
         return $newUser;
-    }
-    */
+        }
+        */
+
+    public function userLogin($email, $password)
+    {
+        //login user
+        $req = $this->db->prepare('SELECT * FROM user WHERE email = :email');
+        $req->execute(array('email' => $email));
+        $login = $req->fetch();
+        return $login;
     }
 }
