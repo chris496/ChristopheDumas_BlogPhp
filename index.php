@@ -50,7 +50,7 @@ if (isset($_GET['action']))
         }
     }
     //page registration
-    elseif ($_GET['action'] == 'registration')
+    elseif ($_GET['action'] == 'pageRegistration')
     {
         $user = new User();
         $user->pageRegistration();
@@ -64,6 +64,24 @@ if (isset($_GET['action']))
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
+        }
+    }
+    //page login
+    elseif ($_GET['action'] == 'pageLogin')
+    {
+        $userLogin = new User();
+        $userLogin->pageLogin();
+    }
+    //user login
+    elseif ($_GET['action'] == 'userLogin')
+    {
+        if (!empty($_POST['email'] ) && !empty($_POST['password'] ))
+        {
+            $userLogin = new User();
+            $userLogin->userLogin($_POST['email'], $_POST['password']);
+        }
+        else{
+            echo 'connexion refusé';
         }
     }
 }
