@@ -49,4 +49,12 @@ class Post extends Controller
         $postManager->createPost($id, $title, $chapo, $description);
          header('Location: index.php');
     }
+
+    //delete a post
+    public function deletePost()
+    {
+        $postManager = new PostManager();
+        $postManager->deletePost($_GET['id']);
+        header('Location: index.php?action=pageAdministration');
+    }
 }

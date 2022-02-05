@@ -35,4 +35,13 @@ class PostManager extends Model
             ':create_at'=> date('Y-m-d H:i:s')));
             return $newPost;
         }
+
+    //delete a post
+    public function deletePost($id){
+        $req = $this->db->prepare('DELETE FROM post WHERE id = :id');
+        $deletePost = $req->execute(array(
+            'id'=> $id,
+            ));
+        return $deletePost;
+    }
 }

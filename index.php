@@ -33,6 +33,16 @@ if (isset($_GET['action']))
             echo 'tous les champs ne sont pas remplis !';
         }
     }
+    //delete a post
+    elseif ($_GET['action'] == 'deletePost'){
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $deletePost = new Post();
+            $deletePost->deletePost();
+        }
+        else {
+            echo 'impossible de supprimer le post !';
+        }
+    }
     //create a comment
     elseif ($_GET['action'] == 'createComment'){
         if (isset($_GET['id']) && $_GET['id'] > 0)
