@@ -9,8 +9,15 @@
         <div class="card-body">
             <img class="img-fluid rounded mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="..." />
                 <div class="small text-muted d-flex justify-content-between">
-                    <div>{{ post.update_date | date('d/m/Y H:i') }}</div> 
-                    <div>Auteur : {{ post.firstname }} {{ post.id }} {{ post.lastname }}</div>
+                    <div>
+                    {% if post.update_date == '0000-00-00 00:00:00' %}
+                        {{ post.added_date | date('d/m/Y H:i') }} 
+                    {% elseif post.update_date != '0000-00-00 00:00:00' %}
+                        {{ post.update_date | date('d/m/Y H:i') }} 
+                    {% else %}
+                    {% endif %}
+                    </div> 
+                    <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
                 </div>
                 <h2 class="card-title">{{ post.title }}</h2>
                 <p class="card-text"><strong>{{ post.chapo }}</strong></p>

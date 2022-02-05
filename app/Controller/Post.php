@@ -27,7 +27,7 @@ class Post extends Controller
         $user = $this->isAdmin();
         $postManager = new PostManager();
         $post = $postManager->getPost($_GET['id']);
-
+        
         // display comments of post
         $commentsManager = new CommentManager();
         $comments = $commentsManager->getComments($_GET['id']);
@@ -41,8 +41,10 @@ class Post extends Controller
     }
 
     //create a new post
-    public function createPost($id, $title, $chapo, $description)
+    public function createPost($title, $chapo, $description)
     {
+        $user = $this->isAdmin();
+        $id = $user['id'];
         $postManager = new PostManager();
         $postManager->createPost($id, $title, $chapo, $description);
          header('Location: index.php');

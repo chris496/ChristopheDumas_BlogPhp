@@ -27,7 +27,7 @@ if (isset($_GET['action']))
     elseif ($_GET['action'] == 'createPost'){
         if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
             $createPost = new Post();
-            $createPost->createPost($_POST['id'], $_POST['title'], $_POST['chapo'], $_POST['description']);
+            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
