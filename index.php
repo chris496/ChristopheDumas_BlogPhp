@@ -84,10 +84,21 @@ if (isset($_GET['action']))
             echo 'connexion refusé';
         }
     }
+    //user Logout
+    elseif ($_GET['action'] == 'userLogout')
+    {
+        $userLogout = new User();
+        $userLogout->userLogout();
+    }
+    //page Administration
+    elseif ($_GET['action'] == 'pageAdministration')
+    {
+        $administration = new User();
+        $administration->pageAdministration();
+    }
 }
 else
 {
     $allPosts = new Post();
     $allPosts->allPosts();
-    dd( date('Y-m-d H:i:s'));
 }
