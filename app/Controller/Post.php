@@ -10,18 +10,21 @@ class Post extends Controller
     //display all posts
     public function allPosts()
     {
+        $user = $this->isAdmin();
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
 
         $this->twig->display('index.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
+            'user' => $user
         ]);
         return $posts;
     }
 
      //display a selected post
-     public function getOnePost()
+    public function getOnePost()
     {
+        $user = $this->isAdmin();
         $postManager = new PostManager();
         $post = $postManager->getPost($_GET['id']);
 
@@ -31,7 +34,8 @@ class Post extends Controller
 
         $this->twig->display('onePost.html.twig', [
             'post' => $post,
-            'comments' => $comments
+            'comments' => $comments,
+            'user' => $user
         ]);
         return $post;
     }
