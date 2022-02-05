@@ -10,11 +10,15 @@
         <div class="col">
             <h2 class="text-center my-5">Gestion des posts</h2>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPost">
-                    Créer un post {{ lastname }}
+                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#newPost">
+                    Créer un post
+                </button>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deletePost">
+                    Supprimer un post
                 </button>
             </div>
-            <!-- Modal -->
+            <!-- Modal create a post -->
             <div class="modal fade" id="newPost" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -42,11 +46,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal delete a post -->
+            <div class="modal fade" id="deletePost" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deletePostLabel">Supprimer un post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for post in posts %}
+                            <div class="border border-dark rounded p-1 mb-2">
+                                <h4>{{ post.title }}</h4> 
+                                <p>{{ post.chapo }}</p> 
+                                <span>{{ post.update_date }}</span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deletePost&amp;id={{ post.id }}">Supprimer</a></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <h2 class="text-center my-5">Gestion des commentaires</h2>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#validComment">
+                    Valider un commentaire
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col">
+            <h2 class="text-center my-5">Gestion des connexions</h2>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#validUser">
+                    Valider un nouvel utilisateur
+                </button>
+            </div>
         </div>
     </div>
 </div>   

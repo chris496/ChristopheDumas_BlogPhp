@@ -70,9 +70,13 @@ class User extends Controller
     //page administration
     public function pageAdministration()
     {
+        $postsManager = new PostManager();
+        $posts = $postsManager->getPosts();
+        
         $user = $this->isAdmin();
         $this->twig->display('administration.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'posts' => $posts
         ]);
     }
 
