@@ -53,4 +53,25 @@ class User extends Controller
             echo ('connexion refusé');
         }
     }
+
+    //user Logout
+    public function userLogout()
+    {
+        $postsManager = new PostManager();
+        $posts = $postsManager->getPosts();
+        session_destroy();
+        $this->twig->display('index.html.twig', [
+            'posts' => $posts
+        ]);
+    }
+
+    //page administration
+    public function pageAdministration()
+    {
+        $user = $this->isAdmin();
+        $this->twig->display('administration.html.twig', [
+            'user' => $user
+        ]);
+    }
+
 }
