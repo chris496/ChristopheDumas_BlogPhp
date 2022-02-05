@@ -40,7 +40,14 @@
             <div class="col-md-4 mb-5">
                 <div class="card h-100">
                     <div class="card-body">
-                        <div class="small text-muted">{{ post.update_date | date('d/m/Y H:i') }}</div>
+                        <div class="small text-muted">
+                        {% if post.update_date == '0000-00-00 00:00:00' %}
+                            {{ post.added_date | date('d/m/Y H:i') }} 
+                        {% elseif post.update_date != '0000-00-00 00:00:00' %}
+                            {{ post.update_date | date('d/m/Y H:i') }} 
+                        {% else %}
+                        {% endif %}
+                        </div>
                         <h2 class="card-title">{{ post.title }}</h2>
                         <p class="card-text"><strong>{{ post.chapo }}</strong></p>
                     </div>
