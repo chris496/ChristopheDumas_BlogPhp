@@ -18,6 +18,14 @@ class CommentManager extends Model
         return $newComment;
     }
 
+    //display all comments
+    public function getAllComments()
+    {
+        $req = $this->db->query('SELECT * FROM comment');
+        $allComments = $req->fetchAll();
+        return $allComments;
+    }
+
     //display comments for one post
     public function getComments($postId)
     {
@@ -25,5 +33,14 @@ class CommentManager extends Model
         $req->execute(array('id' => $postId));
         $comments = $req->fetchAll();
         return $comments;
+    }
+
+    //delete a comment
+    public function deleteComment($id){
+        $req = $this->db->prepare('DELETE FROM comment WHERE id = :id');
+        $deleteComment = $req->execute(array(
+            'id'=> $id,
+            ));
+        return $deleteComment;
     }
 }
