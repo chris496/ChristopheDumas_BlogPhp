@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="ms-2 mt-2">
+    <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+</div>
+<div class="col-md-4 m-5 mx-auto">
+    <div class="card h-100">
+        <div class="card-body">
+        <form action="index.php?action=updatePost&amp;id={{ post.id }}" method="post">
+            <img class="img-fluid rounded mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="..." />
+                <div class="small text-muted d-flex justify-content-between">
+                    
+                    <div>
+                    {% if post.update_date == '0000-00-00 00:00:00' %}
+                        {{ post.added_date | date('d/m/Y H:i') }} 
+                    {% elseif post.update_date != '0000-00-00 00:00:00' %}
+                        {{ post.update_date | date('d/m/Y H:i') }} 
+                    {% else %}
+                    {% endif %}
+                    </div> 
+                    <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
+                </div>
+                <label for="name">Modifier le titre :</label>
+                <input class="card-title" type="text" id="title" name="title" value="{{ post.title }}" required  size="10">
+                <label for="name">Modifier le titre :</label>
+                <input class="card-title" type="text" id="chapo" name="chapo" value="{{ post.chapo }}" required  size="10">
+                <label for="name">Modifier le titre :</label>
+                <input class="card-title" type="text" id="description" name="description" value="{{ post.description }}"  size="10">
+                <p class="card-text"><strong>{{ post.chapo }}</strong></p>
+                <p class="card-text">{{ post.description }}</p>
+                <div class="text-center mt-3">
+                                    <input class="btn btn-primary" type="submit"/>
+                                </div>
+                </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

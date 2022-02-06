@@ -5,7 +5,7 @@
     <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
 </div>
 
-<div class="container">
+<div class="container d-flex justify-content-between">
     <div class="row">
         <div class="col">
             <h2 class="text-center my-5">Gestion des posts</h2>
@@ -14,7 +14,11 @@
                     Créer un post
                 </button>
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deletePost">
+                <button type="button" class="btn btn-info text-white me-3" data-bs-toggle="modal" data-bs-target="#updatePost">
+                    Modifier un post
+                </button>
+
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePost">
                     Supprimer un post
                 </button>
             </div>
@@ -47,6 +51,33 @@
                 </div>
             </div>
 
+            <!-- Modal update a post -->
+            <div class="modal fade" id="updatePost" tabindex="-1" aria-labelledby="updatePostLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updatePostLabel">Supprimer un post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for post in posts %}
+                            <div class="border border-dark rounded p-1 mb-2">
+                                <h4>{{ post.title }}</h4> 
+                                <p>{{ post.chapo }}</p> 
+                                <span>
+                                {% if post.update_date == '0000-00-00 00:00:00' %}
+                                {{ post.added_date | date('d/m/Y H:i') }} 
+                                {% elseif post.update_date != '0000-00-00 00:00:00' %}
+                                {{ post.update_date | date('d/m/Y H:i') }} 
+                                {% else %}
+                                {% endif %}
+                                </span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=pageUpdatePost&amp;id={{ post.id }}">Modifier</a></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Modal delete a post -->
             <div class="modal fade" id="deletePost" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
@@ -72,7 +103,7 @@
         <div class="col">
             <h2 class="text-center my-5">Gestion des commentaires</h2>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#validComment">
+                <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#validComment">
                     Valider un commentaire
                 </button>
             </div>
@@ -82,7 +113,7 @@
         <div class="col">
             <h2 class="text-center my-5">Gestion des connexions</h2>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#validUser">
+                <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#validUser">
                     Valider un nouvel utilisateur
                 </button>
             </div>

@@ -50,6 +50,28 @@ class Post extends Controller
          header('Location: index.php');
     }
 
+    //page update post
+    public function pageUpdatePost()
+    {
+        $user = $this->isAdmin();
+        $postManager = new PostManager();
+        $post = $postManager->getPost($_GET['id']);
+
+        $this->twig->display('updateOnePost.html.twig', [
+            'post' => $post,
+            'user' => $user
+        ]);
+        return $post;
+    }
+
+    //page update post
+    public function updatePost($id, $title, $chapo, $description)
+    {
+        $postManager = new PostManager();
+        $postManager->updatePost($id, $title, $chapo, $description);
+        header('Location: index.php');
+    }
+
     //delete a post
     public function deletePost()
     {
