@@ -94,6 +94,16 @@ if (isset($_GET['action']))
             echo 'Erreur : aucun identifiant de post envoyé';
         }
     }
+    //delete a comment
+    elseif ($_GET['action'] == 'deleteComment'){
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $deleteComment = new Comment();
+            $deleteComment->deleteComment();
+        }
+        else {
+            echo 'impossible de supprimer le commentaire !';
+        }
+    }
     //page registration
     elseif ($_GET['action'] == 'pageRegistration')
     {
