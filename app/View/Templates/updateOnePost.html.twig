@@ -21,14 +21,16 @@
                     </div> 
                     <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
                 </div>
-                <label for="name">Modifier le titre :</label>
+                <div class="d-flex flex-column mt-3">
+                <label for="name"><strong>Modifier le titre :</strong></label>
                 <input class="card-title" type="text" id="title" name="title" value="{{ post.title }}" required  size="10">
-                <label for="name">Modifier le titre :</label>
+
+                <label for="name"><strong>Modifier le chapo :</strong></label>
                 <input class="card-title" type="text" id="chapo" name="chapo" value="{{ post.chapo }}" required  size="10">
-                <label for="name">Modifier le titre :</label>
-                <input class="card-title" type="text" id="description" name="description" value="{{ post.description }}"  size="10">
-                <p class="card-text"><strong>{{ post.chapo }}</strong></p>
-                <p class="card-text">{{ post.description }}</p>
+
+                <label for="name"><strong>Modifier la description :</strong></label>
+                <textarea class="card-title" type="text" id="description" name="description" size="10">{{ post.description }}</textarea>
+                </div>
                 <div class="text-center mt-3">
                                     <input class="btn btn-primary" type="submit"/>
                                 </div>

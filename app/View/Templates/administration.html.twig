@@ -5,22 +5,25 @@
     <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
 </div>
 
-<div class="container d-flex justify-content-between">
-    <div class="row">
+<div class="container">
+    <div class="row m-5">
         <div class="col">
-            <h2 class="text-center my-5">Gestion des posts</h2>
-            <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#newPost">
+        <div class="card">
+            <h3 class="card-header text-center">Gestion des posts</h3>
+
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#newPost">
                     Créer un post
                 </button>
 
-                <button type="button" class="btn btn-info text-white me-3" data-bs-toggle="modal" data-bs-target="#updatePost">
+                <button type="button" class="btn btn-info text-white my-2" data-bs-toggle="modal" data-bs-target="#updatePost">
                     Modifier un post
                 </button>
 
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePost">
+                <button type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#deletePost">
                     Supprimer un post
                 </button>
+            </div>
             </div>
             <!-- Modal create a post -->
             <div class="modal fade" id="newPost" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
@@ -56,7 +59,7 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="updatePostLabel">Supprimer un post</h5>
+                            <h5 class="modal-title" id="updatePostLabel">Modifier un post</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -71,7 +74,7 @@
                                 {{ post.update_date | date('d/m/Y H:i') }} 
                                 {% else %}
                                 {% endif %}
-                                </span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=pageUpdatePost&amp;id={{ post.id }}">Modifier</a></div>
+                                </span><a class="nav-link badge bg-warning rounded ms-2" href="index.php?action=pageUpdatePost&amp;id={{ post.id }}">Modifier</a></div>
                             {% endfor %}
                         </div>
                     </div>
@@ -98,27 +101,31 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
+    
+    
         <div class="col">
-            <h2 class="text-center my-5">Gestion des commentaires</h2>
-            <div class="d-flex justify-content-center">
+        <div class="card">
+            <h3 class="card-header text-center">Gestion des commentaires</h3>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
                 <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#validComment">
                     Valider un commentaire
                 </button>
             </div>
+            </div>
         </div>
-    </div>
-    <div class="row mb-5">
+    
+    
         <div class="col">
-            <h2 class="text-center my-5">Gestion des connexions</h2>
-            <div class="d-flex justify-content-center">
+        <div class="card">
+            <h3 class="card-header text-center">Gestion des connexions</h3>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
                 <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#validUser">
                     Valider un nouvel utilisateur
                 </button>
             </div>
         </div>
-    </div>
+        </div>
+   </div>
 </div>   
 {% endblock %}
 
