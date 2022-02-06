@@ -33,6 +33,41 @@ if (isset($_GET['action']))
             echo 'tous les champs ne sont pas remplis !';
         }
     }
+    //page update a post
+    elseif ($_GET['action'] == 'pageUpdatePost')
+    {
+        if (isset($_GET['id']) && $_GET['id'] > 0)
+        {
+            $pageUpdatePost = new Post();
+            $pageUpdatePost->pageUpdatePost();
+        }
+    }
+    //update a post
+    elseif ($_GET['action'] == 'updatePost'){
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            if (!empty($_POST['title']) && !empty($_POST['chapo']) && !empty($_POST['description'])) 
+            {
+                $updatePost = new Post();
+                $updatePost->updatePost($_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['description']);
+            }
+            else {
+                echo 'Erreur : tous les champs ne sont pas remplis !';
+            }
+            
+        }
+        else {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
+    elseif ($_GET['action'] == 'createPost'){
+        if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
+            $createPost = new Post();
+            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description']);
+        }
+        else{
+            echo 'tous les champs ne sont pas remplis !';
+        }
+    }
     //delete a post
     elseif ($_GET['action'] == 'deletePost'){
         if (isset($_GET['id']) && $_GET['id'] > 0) {
