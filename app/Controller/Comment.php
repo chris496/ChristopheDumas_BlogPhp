@@ -13,4 +13,12 @@ class comment
         header('Location: index.php?action=getOnePost&id=' . $postId);
         return $newComment;
     }
+
+    //delete a comment
+    public function deleteComment()
+    {
+        $postManager = new CommentManager();
+        $postManager->deleteComment($_GET['id']);
+        header('Location: index.php?action=pageAdministration');
+    }
 }

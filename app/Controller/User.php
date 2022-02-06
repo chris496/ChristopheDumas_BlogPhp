@@ -3,6 +3,7 @@ namespace App\blog\Controller;
 
 use App\blog\Model\PostManager;
 use App\blog\Model\UserManager;
+use App\blog\Model\CommentManager;
 
 class User extends Controller
 {
@@ -72,11 +73,15 @@ class User extends Controller
     {
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
-        
+
+        $commentsManager = new CommentManager();
+        $allComments = $commentsManager->getAllComments();
+       
         $user = $this->isAdmin();
         $this->twig->display('administration.html.twig', [
             'user' => $user,
-            'posts' => $posts
+            'posts' => $posts,
+            'allComments' => $allComments
         ]);
     }
 

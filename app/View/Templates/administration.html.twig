@@ -107,19 +107,46 @@
         <div class="card">
             <h3 class="card-header text-center">Gestion des commentaires</h3>
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#validComment">
+                <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#validComment">
                     Valider un commentaire
+                </button>
+
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteComment">
+                    Supprimer un commentaire
                 </button>
             </div>
             </div>
         </div>
+
+        <!-- Modal delete a comment -->
+            <div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="deleteCommentLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteCommentLabel">Supprimer un commentaire</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for allComment in allComments %}
+                            <div class="border border-dark rounded p-1 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <h5>{{ allComment.pseudo }}</h5> 
+                                    <span>{{ allComment.email }}</span>
+                                </div> 
+                                <p>{{ allComment.description }}</p> 
+                                <span>{{ allComment.added_date }}</span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deleteComment&amp;id={{ allComment.id }}">Supprimer</a></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
     
     
         <div class="col">
         <div class="card">
             <h3 class="card-header text-center">Gestion des connexions</h3>
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#validUser">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#validUser">
                     Valider un nouvel utilisateur
                 </button>
             </div>
