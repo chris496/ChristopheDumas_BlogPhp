@@ -49,7 +49,9 @@
                                 <textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
                             </div>
                             <div class="text-center mt-3">
-                                <input class="btn btn-primary" type="submit"/>
+                                <input class="btn btn-primary mb-3" type="submit"/>
+                                <br>
+                                <span>(votre commentaire s'affichera uniquement après validation d'un modérateur)</span>
                             </div>
                         </form>
                     </div>
@@ -58,6 +60,7 @@
         </div>     
         <div>
             {% for comment in comments %}
+            {% if comment.isValid == 1 %}
             <div class="border rounded mx-2 mt-2 p-2">
                 {{ comment.description }}
             </div>
@@ -65,6 +68,7 @@
                 <div>{{ comment.pseudo }}</div>
                 <div>{{ comment.added_date }}</div>
             </div> 
+            {% endif %}
             {% endfor %}
         </div>  
     </div>

@@ -18,6 +18,16 @@ class CommentManager extends Model
         return $newComment;
     }
 
+    //valid commetn
+    public function validComment($id)
+    {
+        $req = $this->db->prepare('UPDATE comment SET isValid = :isValid WHERE id = :id');
+        $validComment = $req->execute(array(
+            'isValid'=> '1',
+            'id' => $id
+        ));
+        return $validComment;
+    }
     //display all comments
     public function getAllComments()
     {
