@@ -119,6 +119,31 @@
         </div>
 
         <!-- Modal delete a comment -->
+            <div class="modal fade" id="validComment" tabindex="-1" aria-labelledby="validCommentLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="validCommentLabel">Valider un commentaire</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for allComment in allComments %}
+                            {% if allComment.isValid != 1 %}
+                            <div class="border border-dark rounded p-1 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <h5>{{ allComment.pseudo }}</h5> 
+                                    <span>{{ allComment.email }}</span>
+                                </div> 
+                                <p>{{ allComment.description }}</p> 
+                                <span>{{ allComment.added_date }}</span><a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validComment&amp;id={{ allComment.id }}">Valider</a></div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Modal delete a comment -->
             <div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="deleteCommentLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">

@@ -14,6 +14,15 @@ class comment
         return $newComment;
     }
 
+    //validate comment
+    public function validComment()
+    {
+        $validComment = new CommentManager();
+        $valid = $validComment->validComment($_GET['id']);
+        header('Location: index.php?action=pageAdministration');
+        return $valid; 
+    }
+
     //delete a comment
     public function deleteComment()
     {
