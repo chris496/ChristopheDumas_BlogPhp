@@ -18,7 +18,7 @@ class CommentManager extends Model
         return $newComment;
     }
 
-    //valid commetn
+    //valid comment
     public function validComment($id)
     {
         $req = $this->db->prepare('UPDATE comment SET isValid = :isValid WHERE id = :id');

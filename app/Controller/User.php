@@ -19,7 +19,15 @@ class User extends Controller
         $userManager->userRegistration($lastname, $firstname, $email, $password);
         header('Location: index.php');
     }
-
+    //validate user
+    public function validUser()
+    {
+        $validUser = new UserManager();
+        $valid = $validUser->validUser($_GET['id']);
+        $this->twig->display('administration.html.twig', [
+            'userValid' => $valid,
+        ]);
+    }
     //page login
     public function pageLogin()
     {
@@ -48,7 +56,8 @@ class User extends Controller
                 'firstname' => $_SESSION['firstname'],
                 'lastname' => $_SESSION['lastname'],
                 'email' => $_SESSION['email'],
-                'role' => $_SESSION['role']
+                'role' => $_SESSION['role'],
+                'user' => $newLogin
             ]);
         }
         else
@@ -76,10 +85,14 @@ class User extends Controller
 
         $commentsManager = new CommentManager();
         $allComments = $commentsManager->getAllComments();
+
+        $UsersManager = new UserManager();
+        $allUsers = $UsersManager->getAllUsers();
        
         $user = $this->isAdmin();
         $this->twig->display('administration.html.twig', [
             'user' => $user,
+            'allUsers' => $allUsers,
             'posts' => $posts,
             'allComments' => $allComments
         ]);

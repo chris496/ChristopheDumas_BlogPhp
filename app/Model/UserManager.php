@@ -17,20 +17,23 @@ class UserManager extends Model
         ));
         return $newUser;
     }
-        /*
-        {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $req = $this->db->prepare('INSERT INTO user(lastname, firstname, email, password) VALUES(:lastname, :firstname, :email, :password, :create_at)');
-        $newUser = $req->execute(array(
-            'lastname'=> $lastname,
-            'firstname'=> $firstname,
-            'email'=> $email,
-            'password'=> $hash,
-            ':create_at'=> date('Y-m-d H:i:s')
+    //display all users
+    public function getAllUsers()
+    {
+        $req = $this->db->query('SELECT * FROM user');
+        $allUsers = $req->fetchAll();
+        return $allUsers;
+    }
+    //valid user
+    public function validUser($id)
+    {
+        $req = $this->db->prepare('UPDATE user SET role = :role WHERE id = :id');
+        $validUser = $req->execute(array(
+            'role'=> '1',
+            'id' => $id
         ));
-        return $newUser;
-        }
-        */
+        return $validUser;
+    }
 
     public function userLogin($email, $password)
     {

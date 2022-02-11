@@ -127,6 +127,12 @@ if (isset($_GET['action']))
             echo 'tous les champs ne sont pas remplis !';
         }
     }
+    //validate user registration
+    elseif ($_GET['action'] == 'validUser')
+    {
+        $validUser = new User();
+        $validUser->validUser();
+    }
     //page login
     elseif ($_GET['action'] == 'pageLogin')
     {

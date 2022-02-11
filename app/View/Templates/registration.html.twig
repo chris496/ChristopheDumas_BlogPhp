@@ -6,33 +6,29 @@
 </div>
 
 <div class="container">
-<div class="row d-flex justify-content-center align-items-center my-5">
-<div class="col-6">
-<h2 class="text-center my-5">Formulaire d'inscrition</h2>
-
-<form action="index.php?action=userRegistration" method="post">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" type="email" id="email" name="email" placeholder="Adresse mail" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>   
-
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" type="password" id="password" name="password" placeholder="Mot de passe" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                            
-                            <div class="text-center mt-3">
-                                <input class="btn btn-primary" type="submit"/>
-                            </div>
-                        </form>
-    
-</div>
-</div>
+    <div class="row d-flex justify-content-center align-items-center my-5">
+        <div class="col-6">
+            <h2 class="text-center my-5">Formulaire d'inscrition</h2>
+            <form action="index.php?action=userRegistration" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" type="email" id="email" name="email" placeholder="Adresse mail" aria-label="Username" aria-describedby="basic-addon1">
+                </div>   
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" type="password" id="password" name="password" placeholder="Mot de passe" aria-label="Username" aria-describedby="basic-addon1">
+                </div>        
+                <div class="text-center mt-3">
+                    <input class="btn btn-primary mb-3" type="submit"/>
+                    <br>
+                    <span>(attention votre compte sera actif uniquement après validation d'un modérateur)</span>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>   
 {% endblock %}

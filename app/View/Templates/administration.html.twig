@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <!-- Modal delete a comment -->
+        <!-- Modal validate a comment -->
             <div class="modal fade" id="validComment" tabindex="-1" aria-labelledby="validCommentLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
@@ -176,6 +176,31 @@
                 </button>
             </div>
         </div>
+
+        <!-- Modal validate a user -->
+            <div class="modal fade" id="validUser" tabindex="-1" aria-labelledby="validUserLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="validUserLabel">Valider un utilisateur</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        
+                           {% for allUser in allUsers %}
+                            {% if allUser.role != 1 %}
+                            <div class="border border-dark rounded p-1 mb-2">
+                                <h5>{{ allUser.firstname }} {{ allUser.lastname }}</h5> 
+                                <div class="d-flex justify-content-between">
+                                <h6>{{ allUser.email }}</h6>
+                                <span>{{ allComment.added_date }}</span><a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validUser&amp;id={{ allUser.id }}">Valider</a></div>
+                                </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
    </div>
 </div>   
