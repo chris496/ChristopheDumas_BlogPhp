@@ -25,9 +25,10 @@ if (isset($_GET['action']))
     }
     //create a new post
     elseif ($_GET['action'] == 'createPost'){
+        //dd($_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
         if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
             $createPost = new Post();
-            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description']);
+            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
@@ -48,7 +49,7 @@ if (isset($_GET['action']))
             if (!empty($_POST['title']) && !empty($_POST['chapo']) && !empty($_POST['description'])) 
             {
                 $updatePost = new Post();
-                $updatePost->updatePost($_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['description']);
+                $updatePost->updatePost($_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
             }
             else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -59,13 +60,23 @@ if (isset($_GET['action']))
             echo 'Erreur : aucun identifiant de billet envoyé';
         }
     }
-    elseif ($_GET['action'] == 'createPost'){
+    /*elseif ($_GET['action'] == 'createPost'){
         if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
             $createPost = new Post();
             $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
+        }
+    }*/
+     //delete a picture
+    elseif ($_GET['action'] == 'deletePicture'){
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $deletePost = new Post();
+            $deletePost->deletePicture();
+        }
+        else {
+            echo 'impossible de supprimer la photo !';
         }
     }
     //delete a post

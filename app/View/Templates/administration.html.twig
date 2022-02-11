@@ -34,16 +34,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="index.php?action=createPost" method="post">
+                            <form action="index.php?action=createPost" method="post" enctype="multipart/form-data">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" type="email" id="title" name="title" placeholder="titre" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="titre" aria-label="title" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="chapo" name="chapo" placeholder="chapo" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" id="chapo" name="chapo" placeholder="chapo" aria-label="chapo" aria-describedby="basic-addon2">
                                 </div>   
-                                <div class="input-group">
+                                <div class="input-group mb-3">
                                     <span class="input-group-text">Votre message</span>
                                     <textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Votre photo :</label>
+                                    <input type="file" class="form-control" id="photo" name="photo" />
                                 </div>
                                 <div class="text-center mt-3">
                                     <input class="btn btn-primary" type="submit"/>
@@ -94,7 +98,14 @@
                             <div class="border border-dark rounded p-1 mb-2">
                                 <h4>{{ post.title }}</h4> 
                                 <p>{{ post.chapo }}</p> 
-                                <span>{{ post.update_date }}</span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deletePost&amp;id={{ post.id }}">Supprimer</a></div>
+                                <span>
+                                {% if post.update_date == '0000-00-00 00:00:00' %}
+                                {{ post.added_date | date('d/m/Y H:i') }} 
+                                {% elseif post.update_date != '0000-00-00 00:00:00' %}
+                                {{ post.update_date | date('d/m/Y H:i') }} 
+                                {% else %}
+                                {% endif %}
+                                </span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deletePost&amp;id={{ post.id }}">Supprimer</a></div>
                             {% endfor %}
                         </div>
                     </div>
