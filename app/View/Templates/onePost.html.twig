@@ -7,21 +7,23 @@
 <div class="col-md-4 m-5 mx-auto">
     <div class="card h-100">
         <div class="card-body">
-            <img class="img-fluid rounded mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="..." />
-                <div class="small text-muted d-flex justify-content-between">
-                    <div>
-                    {% if post.update_date == '0000-00-00 00:00:00' %}
-                        {{ post.added_date | date('d/m/Y H:i') }} 
-                    {% elseif post.update_date != '0000-00-00 00:00:00' %}
-                        {{ post.update_date | date('d/m/Y H:i') }} 
-                    {% else %}
-                    {% endif %}
-                    </div> 
-                    <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
-                </div>
-                <h2 class="card-title">{{ post.title }}</h2>
-                <p class="card-text"><strong>{{ post.chapo }}</strong></p>
-                <p class="card-text">{{ post.description }}</p>
+            {% if post.picture != null %}
+            <img src="./uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
+            {% endif %}
+            <div class="small text-muted d-flex justify-content-between">
+                <div>
+                {% if post.update_date == '0000-00-00 00:00:00' %}
+                    {{ post.added_date | date('d/m/Y H:i') }} 
+                {% elseif post.update_date != '0000-00-00 00:00:00' %}
+                    {{ post.update_date | date('d/m/Y H:i') }} 
+                {% else %}
+                {% endif %}
+                </div> 
+                <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
+            </div>
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text"><strong>{{ post.chapo }}</strong></p>
+            <p class="card-text">{{ post.description }}</p>
         </div>
         <div class="card-footer d-flex justify-content-center">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
