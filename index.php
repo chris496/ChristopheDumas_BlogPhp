@@ -7,11 +7,9 @@ use App\blog\Controller\User;
 
 require('./vendor/autoload.php');
 
-$test = new SuperGlobals();
-$get =$test->getGET();
-//$cleanedGET = array_map("strip_tags", $get);
-
-var_dump($get);
+$superglobals = new SuperGlobals();
+$post = $superglobals->getPOST();
+$get =$superglobals->getGET();
 
 if (isset($get['action']))
 {
@@ -33,10 +31,9 @@ if (isset($get['action']))
     //create a new post
     elseif ($get['action'] == 'createPost')
     {
-        //dd($_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
-        if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
+        if (!empty($post['title']) && !empty($post['chapo'] ) && !empty($post['description'] )){
             $createPost = new Post();
-            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
+            $createPost->createPost($post['title'], $post['chapo'], $post['description'], $_FILES['photo']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
@@ -54,10 +51,10 @@ if (isset($get['action']))
     //update a post
     elseif ($get['action'] == 'updatePost'){
         if (isset($get['id']) && $get['id'] > 0) {
-            if (!empty($_POST['title']) && !empty($_POST['chapo']) && !empty($_POST['description'])) 
+            if (!empty($post['title']) && !empty($post['chapo']) && !empty($post['description'])) 
             {
                 $updatePost = new Post();
-                $updatePost->updatePost($get['id'], $_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
+                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $_FILES['photo']);
             }
             else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -101,9 +98,9 @@ if (isset($get['action']))
     elseif ($get['action'] == 'createComment'){
         if (isset($get['id']) && $get['id'] > 0)
         {
-            if (!empty($_POST['pseudo']) && !empty($_POST['email'] ) && !empty($_POST['description'] )){
+            if (!empty($post['pseudo']) && !empty($post['email'] ) && !empty($post['description'] )){
                 $createComment = new Comment();
-                $createComment->createComment($get['id'], $_POST['pseudo'], $_POST['email'], $_POST['description']);
+                $createComment->createComment($get['id'], $post['pseudo'], $post['email'], $post['description']);
             }
             else{
                 echo 'tous les champs ne sont pas remplis !';
@@ -138,9 +135,9 @@ if (isset($get['action']))
     //user registration
     elseif ($get['action'] == 'userRegistration')
     {
-        if (!empty(!empty($_POST['lastname'] ) && $_POST['firstname']) && !empty($_POST['email'] ) && !empty($_POST['password'] )){
+        if (!empty(!empty($post['lastname'] ) && $post['firstname']) && !empty($post['email'] ) && !empty($post['password'] )){
             $newUser = new User();
-            $newUser->userRegistration($_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['password']);
+            $newUser->userRegistration($post['lastname'], $post['firstname'], $post['email'], $post['password']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
@@ -161,10 +158,10 @@ if (isset($get['action']))
     //user login
     elseif ($get['action'] == 'userLogin')
     {
-        if (!empty($_POST['email'] ) && !empty($_POST['password'] ))
+        if (!empty($post['email'] ) && !empty($post['password'] ))
         {
             $userLogin = new User();
-            $userLogin->userLogin($_POST['email'], $_POST['password']);
+            $userLogin->userLogin($post['email'], $post['password']);
         }
         else{
             echo 'connexion refusé';
