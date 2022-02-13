@@ -2,54 +2,60 @@
 
 use App\blog\Controller\Comment;
 use App\blog\Controller\Post;
+use App\blog\Controller\SuperGlobals;
 use App\blog\Controller\User;
 
 require('./vendor/autoload.php');
 
-if (isset($_GET['action']))
+$superglobals = new SuperGlobals();
+$post = $superglobals->getPOST();
+$get =$superglobals->getGET();
+$files =$superglobals->getFILES();
+
+if (isset($get['action']))
 {
     // Display all posts
-    if ($_GET['action'] == 'allposts')
+    if ($get['action'] == 'allposts')
     {
         $allPosts = new Post();
         $allPosts->allPosts();
     }
     //display a selected post
-    elseif ($_GET['action'] == 'getOnePost')
+    elseif ($get['action'] == 'getOnePost')
     {
-        if (isset($_GET['id']) && $_GET['id'] > 0)
+        if (isset($get['id']) && $get['id'] > 0)
         {
             $getOnePost = new Post();
             $getOnePost->getOnePost();
         }
     }
     //create a new post
-    elseif ($_GET['action'] == 'createPost'){
-        //dd($_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
-        if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
+    elseif ($get['action'] == 'createPost')
+    {
+        if (!empty($post['title']) && !empty($post['chapo'] ) && !empty($post['description'] )){
             $createPost = new Post();
-            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
+            $createPost->createPost($post['title'], $post['chapo'], $post['description'], $files['photo']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
         }
     }
     //page update a post
-    elseif ($_GET['action'] == 'pageUpdatePost')
+    elseif ($get['action'] == 'pageUpdatePost')
     {
-        if (isset($_GET['id']) && $_GET['id'] > 0)
+        if (isset($get['id']) && $get['id'] > 0)
         {
             $pageUpdatePost = new Post();
             $pageUpdatePost->pageUpdatePost();
         }
     }
     //update a post
-    elseif ($_GET['action'] == 'updatePost'){
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
-            if (!empty($_POST['title']) && !empty($_POST['chapo']) && !empty($_POST['description'])) 
+    elseif ($get['action'] == 'updatePost'){
+        if (isset($get['id']) && $get['id'] > 0) {
+            if (!empty($post['title']) && !empty($post['chapo']) && !empty($post['description'])) 
             {
                 $updatePost = new Post();
-                $updatePost->updatePost($_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['description'], $_FILES['photo']);
+                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $files['photo']);
             }
             else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -70,8 +76,8 @@ if (isset($_GET['action']))
         }
     }*/
      //delete a picture
-    elseif ($_GET['action'] == 'deletePicture'){
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
+    elseif ($get['action'] == 'deletePicture'){
+        if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
             $deletePost->deletePicture();
         }
@@ -80,8 +86,8 @@ if (isset($_GET['action']))
         }
     }
     //delete a post
-    elseif ($_GET['action'] == 'deletePost'){
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
+    elseif ($get['action'] == 'deletePost'){
+        if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
             $deletePost->deletePost();
         }
@@ -90,12 +96,12 @@ if (isset($_GET['action']))
         }
     }
     //create a comment
-    elseif ($_GET['action'] == 'createComment'){
-        if (isset($_GET['id']) && $_GET['id'] > 0)
+    elseif ($get['action'] == 'createComment'){
+        if (isset($get['id']) && $get['id'] > 0)
         {
-            if (!empty($_POST['pseudo']) && !empty($_POST['email'] ) && !empty($_POST['description'] )){
+            if (!empty($post['pseudo']) && !empty($post['email'] ) && !empty($post['description'] )){
                 $createComment = new Comment();
-                $createComment->createComment($_GET['id'], $_POST['pseudo'], $_POST['email'], $_POST['description']);
+                $createComment->createComment($get['id'], $post['pseudo'], $post['email'], $post['description']);
             }
             else{
                 echo 'tous les champs ne sont pas remplis !';
@@ -106,14 +112,14 @@ if (isset($_GET['action']))
         }
     }
     //validate comment
-    elseif ($_GET['action'] == 'validComment')
+    elseif ($get['action'] == 'validComment')
     {
         $validComment = new Comment();
         $validComment->validComment();
     }
     //delete a comment
-    elseif ($_GET['action'] == 'deleteComment'){
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
+    elseif ($get['action'] == 'deleteComment'){
+        if (isset($get['id']) && $get['id'] > 0) {
             $deleteComment = new Comment();
             $deleteComment->deleteComment();
         }
@@ -122,54 +128,54 @@ if (isset($_GET['action']))
         }
     }
     //page registration
-    elseif ($_GET['action'] == 'pageRegistration')
+    elseif ($get['action'] == 'pageRegistration')
     {
         $user = new User();
         $user->pageRegistration();
     }
     //user registration
-    elseif ($_GET['action'] == 'userRegistration')
+    elseif ($get['action'] == 'userRegistration')
     {
-        if (!empty(!empty($_POST['lastname'] ) && $_POST['firstname']) && !empty($_POST['email'] ) && !empty($_POST['password'] )){
+        if (!empty(!empty($post['lastname'] ) && $post['firstname']) && !empty($post['email'] ) && !empty($post['password'] )){
             $newUser = new User();
-            $newUser->userRegistration($_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['password']);
+            $newUser->userRegistration($post['lastname'], $post['firstname'], $post['email'], $post['password']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
         }
     }
     //validate user registration
-    elseif ($_GET['action'] == 'validUser')
+    elseif ($get['action'] == 'validUser')
     {
         $validUser = new User();
         $validUser->validUser();
     }
     //page login
-    elseif ($_GET['action'] == 'pageLogin')
+    elseif ($get['action'] == 'pageLogin')
     {
         $userLogin = new User();
         $userLogin->pageLogin();
     }
     //user login
-    elseif ($_GET['action'] == 'userLogin')
+    elseif ($get['action'] == 'userLogin')
     {
-        if (!empty($_POST['email'] ) && !empty($_POST['password'] ))
+        if (!empty($post['email'] ) && !empty($post['password'] ))
         {
             $userLogin = new User();
-            $userLogin->userLogin($_POST['email'], $_POST['password']);
+            $userLogin->userLogin($post['email'], $post['password']);
         }
         else{
             echo 'connexion refusé';
         }
     }
     //user Logout
-    elseif ($_GET['action'] == 'userLogout')
+    elseif ($get['action'] == 'userLogout')
     {
         $userLogout = new User();
         $userLogout->userLogout();
     }
     //page Administration
-    elseif ($_GET['action'] == 'pageAdministration')
+    elseif ($get['action'] == 'pageAdministration')
     {
         $administration = new User();
         $administration->pageAdministration();

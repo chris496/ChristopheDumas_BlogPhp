@@ -22,8 +22,11 @@ class User extends Controller
     //validate user
     public function validUser()
     {
+        $superglobals = new SuperGlobals();
+        $get = $superglobals->getGET();
+
         $validUser = new UserManager();
-        $valid = $validUser->validUser($_GET['id']);
+        $valid = $validUser->validUser($get['id']);
         $this->twig->display('administration.html.twig', [
             'userValid' => $valid,
         ]);
