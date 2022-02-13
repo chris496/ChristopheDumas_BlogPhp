@@ -9,15 +9,17 @@ class SuperGlobals
 
     public function __construct()
     {
-        $this->_GET = filter_input_array(INPUT_GET) ?? null;
-        $this->_POST = filter_input_array(INPUT_POST) ?? null;
+        $this->_GET = (isset($_GET)) ? $_GET : null;
+        $this->_POST = (isset($_POST)) ? $_POST : null;
+        //$this->_GET = filter_input_array(INPUT_GET) ?? null;
+        //$this->_POST = filter_input_array(INPUT_POST) ?? null;
     }
 
     public function getGET($key = null)
     {
         if(null !== $key)
         {
-            return $this->_GET[$key] ?? null;
+            return (isset($this->_GET["$key"])) ? $this->_GET["$key"] : null;
         }
         return $this->_GET;
     }
@@ -26,7 +28,7 @@ class SuperGlobals
     {
         if(null !== $key)
         {
-            return $this->_POST[$key] ?? null;
+            return (isset($this->_POST["$key"])) ? $this->_POST["$key"] : null;
         }
         return $this->_POST;
     }
