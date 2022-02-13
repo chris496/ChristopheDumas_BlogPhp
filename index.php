@@ -10,6 +10,7 @@ require('./vendor/autoload.php');
 $superglobals = new SuperGlobals();
 $post = $superglobals->getPOST();
 $get =$superglobals->getGET();
+$files =$superglobals->getFILES();
 
 if (isset($get['action']))
 {
@@ -33,7 +34,7 @@ if (isset($get['action']))
     {
         if (!empty($post['title']) && !empty($post['chapo'] ) && !empty($post['description'] )){
             $createPost = new Post();
-            $createPost->createPost($post['title'], $post['chapo'], $post['description'], $_FILES['photo']);
+            $createPost->createPost($post['title'], $post['chapo'], $post['description'], $files['photo']);
         }
         else{
             echo 'tous les champs ne sont pas remplis !';
@@ -54,7 +55,7 @@ if (isset($get['action']))
             if (!empty($post['title']) && !empty($post['chapo']) && !empty($post['description'])) 
             {
                 $updatePost = new Post();
-                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $_FILES['photo']);
+                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $files['photo']);
             }
             else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';

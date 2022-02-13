@@ -17,8 +17,11 @@ class comment
     //validate comment
     public function validComment()
     {
+        $superglobals = new SuperGlobals();
+        $get = $superglobals->getGET();
+
         $validComment = new CommentManager();
-        $valid = $validComment->validComment($_GET['id']);
+        $valid = $validComment->validComment($get['id']);
         header('Location: index.php?action=pageAdministration');
         return $valid; 
     }
@@ -26,8 +29,11 @@ class comment
     //delete a comment
     public function deleteComment()
     {
+        $superglobals = new SuperGlobals();
+        $get = $superglobals->getGET();
+        
         $postManager = new CommentManager();
-        $postManager->deleteComment($_GET['id']);
+        $postManager->deleteComment($get['id']);
         header('Location: index.php?action=pageAdministration');
     }
 }
