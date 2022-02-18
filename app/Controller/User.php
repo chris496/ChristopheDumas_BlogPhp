@@ -40,6 +40,9 @@ class User extends Controller
     //user login
     public function userLogin($email, $password)
     {
+        $superglobals = new SuperGlobals();
+        $session = $superglobals->getSESSION();
+
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
         
@@ -48,18 +51,19 @@ class User extends Controller
         if (password_verify($password, $newLogin['password']))
         {
             session_start();
-            $_SESSION['id'] = $newLogin['id'];
-            $_SESSION['firstname'] = $newLogin['firstname'];
-            $_SESSION['lastname'] = $newLogin['lastname'];
-            $_SESSION['email'] = $newLogin['email'];
-            $_SESSION['role'] = $newLogin['role'];
+            $session['id'] = $newLogin['id'];
+            $session['firstname'] = $newLogin['firstname'];
+            $session['lastname'] = $newLogin['lastname'];
+            $session['email'] = $newLogin['email'];
+            $session['role'] = $newLogin['role'];
+
             $this->twig->display('index.html.twig', [
                 'posts' => $posts,
-                'id' => $_SESSION['id'],
-                'firstname' => $_SESSION['firstname'],
-                'lastname' => $_SESSION['lastname'],
-                'email' => $_SESSION['email'],
-                'role' => $_SESSION['role'],
+                'id' => $session['id'],
+                'firstname' => $session['firstname'],
+                'lastname' => $session['lastname'],
+                'email' => $session['email'],
+                'role' => $session['role'],
                 'user' => $newLogin
             ]);
         }

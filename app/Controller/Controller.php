@@ -23,15 +23,18 @@ abstract class Controller
 
     public function isAdmin()
     {
-        if($_SESSION['role'] === '1')
+        $superglobals = new SuperGlobals();
+        $session = $superglobals->getSESSION();
+
+        if($session['role'] === '1')
         {
             return
             [
-                'id' => $_SESSION['id'],
-                'firstname' => $_SESSION['firstname'],
-                'lastname' => $_SESSION['lastname'],
-                'email' => $_SESSION['email'],
-                'role' => $_SESSION['role']
+                'id' => $session['id'],
+                'firstname' => $session['firstname'],
+                'lastname' => $session['lastname'],
+                'email' => $session['email'],
+                'role' => $session['role']
             ];
         }
     }

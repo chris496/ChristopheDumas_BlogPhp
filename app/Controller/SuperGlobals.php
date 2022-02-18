@@ -7,17 +7,17 @@ class SuperGlobals
     private $_GET;
     private $_POST;
     private $_FILES;
-    //private $_SESSION;
+    private $_SESSION;
 
     public function __construct()
     {
         $this->_GET = (isset($_GET)) ? $_GET : null;
         $this->_POST = (isset($_POST)) ? $_POST : null;
         $this->_FILES = (isset($_FILES)) ? $_FILES : null;
-        //$this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
+        $this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
     }
 
-    public function getGET($key = null)
+    public function getGET($key = null): ?array
     {
         if(null !== $key)
         {
@@ -44,12 +44,12 @@ class SuperGlobals
         return $this->_FILES;
     }
 
-    /*public function getSESSION($key = null)
+    public function getSESSION($key = null)
     {
         if(null !== $key)
         {
             return (isset($this->_SESSION["$key"])) ? $this->_SESSION["$key"] : null;
         }
         return $this->_SESSION;
-    }*/
+    }
 }
