@@ -6,7 +6,7 @@ use App\blog\Model\PostManager;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class sendMail extends Controller
+class SendMail extends Controller
 {
     public function sendMail($lastname, $firstname, $email, $description)
     {
