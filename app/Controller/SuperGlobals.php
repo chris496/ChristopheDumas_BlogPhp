@@ -52,4 +52,9 @@ class SuperGlobals
         }
         return $this->_SESSION;
     }
+
+    public function setSESSION($session)
+    {
+        return $_SESSION = $session;
+    }
 }
