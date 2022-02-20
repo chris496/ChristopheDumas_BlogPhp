@@ -49,6 +49,10 @@ class Post extends Controller
         $superglobals = new SuperGlobals();
         $files =$superglobals->getFILES();
         
+        $title = htmlspecialchars($title);
+        $chapo = htmlspecialchars($chapo);
+        $description = htmlspecialchars($description);
+        
         if (isset($files['photo']) && $files['photo']['error'] == 0)
         {
             if ($files['photo']['size'] <= 4000000)
@@ -61,16 +65,25 @@ class Post extends Controller
                     $uniqueName = uniqid('', true);
                     $file = $uniqueName.".".$extension;
                     move_uploaded_file($files['photo']['tmp_name'], 'uploads/' . basename($file));
-                    echo "L'envoi a bien été effectué !";
                 }
             }
         };
 
-        $user = $this->isAdmin();
-        $id = $user['id'];
-        $postManager = new PostManager();
-        $postManager->createPost($id, $title, $chapo, $description, $file);
-         header('Location: index.php');
+        if (!empty($title) && !empty($chapo) && !empty($description))
+        {
+            $user = $this->isAdmin();
+            $id = $user['id'];
+            $postManager = new PostManager();
+            $postManager->createPost($id, $title, $chapo, $description, $file);
+            header('Location: index.php');
+        }
+        else
+        {
+            $this->twig->display('administration.html.twig', [
+                'vide' => true
+            ]);
+            
+        }
     }
 
     //page update post
@@ -96,6 +109,10 @@ class Post extends Controller
         $superglobals = new SuperGlobals();
         $files =$superglobals->getFILES();
 
+        $title = htmlspecialchars($title);
+        $chapo = htmlspecialchars($chapo);
+        $description = htmlspecialchars($description);
+
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
 
@@ -117,9 +134,19 @@ class Post extends Controller
                 }
             }
         };
-        
-        $postManager->updatePost($id, $title, $chapo, $description, $file);
-        header('Location: index.php');
+
+        if (!empty($title) && !empty($chapo) && !empty($description))
+        {
+            $postManager->updatePost($id, $title, $chapo, $description, $file);
+            header('Location: index.php');
+        }
+        else
+        {
+            $this->twig->display('updateOnePost.html.twig', [
+                'vide' => true
+            ]);
+            
+        }
     }
 
     //delete a post

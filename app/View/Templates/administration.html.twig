@@ -1,6 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+{% if vide %}
+    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        Veuillez renseigner tous les champs !
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
 <div class="ms-2 mt-2">
     <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
 </div>

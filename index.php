@@ -33,13 +33,8 @@ if (isset($get['action']))
     //create a new post
     elseif ($get['action'] == 'createPost')
     {
-        if (!empty($post['title']) && !empty($post['chapo'] ) && !empty($post['description'] )){
             $createPost = new Post();
             $createPost->createPost($post['title'], $post['chapo'], $post['description'], $files['photo']);
-        }
-        else{
-            echo 'tous les champs ne sont pas remplis !';
-        }
     }
     //page update a post
     elseif ($get['action'] == 'pageUpdatePost')
@@ -52,19 +47,10 @@ if (isset($get['action']))
     }
     //update a post
     elseif ($get['action'] == 'updatePost'){
-        if (isset($get['id']) && $get['id'] > 0) {
-            if (!empty($post['title']) && !empty($post['chapo']) && !empty($post['description'])) 
-            {
+        if ($get['id'] > 0) 
+        {
                 $updatePost = new Post();
-                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $files['photo']);
-            }
-            else {
-                echo 'Erreur : tous les champs ne sont pas remplis !';
-            }
-            
-        }
-        else {
-            echo 'Erreur : aucun identifiant de billet envoyé';
+                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $files['photo']);   
         }
     }
     //delete a picture
@@ -89,18 +75,10 @@ if (isset($get['action']))
     }
     //create a comment
     elseif ($get['action'] == 'createComment'){
-        if (isset($get['id']) && $get['id'] > 0)
+        if ($get['id'] > 0)
         {
-            if (!empty($post['pseudo']) && !empty($post['email'] ) && !empty($post['description'] )){
                 $createComment = new Comment();
                 $createComment->createComment($get['id'], $post['pseudo'], $post['email'], $post['description']);
-            }
-            else{
-                echo 'tous les champs ne sont pas remplis !';
-            }
-        }
-        else {
-            echo 'Erreur : aucun identifiant de post envoyé';
         }
     }
     //validate comment
@@ -111,12 +89,9 @@ if (isset($get['action']))
     }
     //delete a comment
     elseif ($get['action'] == 'deleteComment'){
-        if (isset($get['id']) && $get['id'] > 0) {
+        if ($get['id'] > 0) {
             $deleteComment = new Comment();
             $deleteComment->deleteComment();
-        }
-        else {
-            echo 'impossible de supprimer le commentaire !';
         }
     }
     //page registration
@@ -128,13 +103,8 @@ if (isset($get['action']))
     //user registration
     elseif ($get['action'] == 'userRegistration')
     {
-        if (!empty(!empty($post['lastname'] ) && $post['firstname']) && !empty($post['email'] ) && !empty($post['password'] )){
-            $newUser = new User();
-            $newUser->userRegistration($post['lastname'], $post['firstname'], $post['email'], $post['password']);
-        }
-        else{
-            echo 'tous les champs ne sont pas remplis !';
-        }
+        $newUser = new User();
+        $newUser->userRegistration($post['lastname'], $post['firstname'], $post['email'], $post['password']);
     }
     //validate user registration
     elseif ($get['action'] == 'validUser')
@@ -151,14 +121,8 @@ if (isset($get['action']))
     //user login
     elseif ($get['action'] == 'userLogin')
     {
-        if (!empty($post['email'] ) && !empty($post['password'] ))
-        {
             $userLogin = new User();
             $userLogin->userLogin($post['email'], $post['password']);
-        }
-        else{
-            echo 'connexion refusé';
-        }
     }
     //user Logout
     elseif ($get['action'] == 'userLogout')
@@ -173,10 +137,10 @@ if (isset($get['action']))
         $administration->pageAdministration();
     }
     //send mail
-    elseif ($get['action'] == 'sendMail'){
-        
+    elseif ($get['action'] == 'sendMail')
+    {
         $sendMail = new SendMail();
-        $sendMail->sendMail($_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['description']);
+        $sendMail->sendMail($post['lastname'], $post['firstname'], $post['email'], $post['description']);
     }
 }
 else
