@@ -1,6 +1,18 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+    {% if sendOk %}
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        Message envoyé, Merci !
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% elseif sendHs %}
+    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        Message non reçu
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% else %}
+    {% endif %}
     <!-- Page Content-->
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->

@@ -41,7 +41,7 @@ class User extends Controller
     public function userLogin($email, $password)
     {
         $superglobals = new SuperGlobals();
-        $session = $superglobals->getSESSION();
+        
 
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
@@ -57,13 +57,16 @@ class User extends Controller
             $session['email'] = $newLogin['email'];
             $session['role'] = $newLogin['role'];
 
+            $superglobals = new SuperGlobals();
+            $session1 = $superglobals->setSESSION($session);    
+//dd($session, $session1, $_SESSION);
             $this->twig->display('index.html.twig', [
                 'posts' => $posts,
-                'id' => $session['id'],
-                'firstname' => $session['firstname'],
-                'lastname' => $session['lastname'],
-                'email' => $session['email'],
-                'role' => $session['role'],
+                'id' => $session1['id'],
+                'firstname' => $session1['firstname'],
+                'lastname' => $session1['lastname'],
+                'email' => $session1['email'],
+                'role' => $session1['role'],
                 'user' => $newLogin
             ]);
         }

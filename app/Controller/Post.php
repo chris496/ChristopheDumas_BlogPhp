@@ -34,7 +34,7 @@ class Post extends Controller
         // display comments of post
         $commentsManager = new CommentManager();
         $comments = $commentsManager->getComments($get['id']);
-
+        
         $this->twig->display('onePost.html.twig', [
             'post' => $post,
             'comments' => $comments,

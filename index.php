@@ -1,9 +1,10 @@
 <?php
 
-use App\blog\Controller\Comment;
 use App\blog\Controller\Post;
-use App\blog\Controller\SuperGlobals;
 use App\blog\Controller\User;
+use App\blog\Controller\Comment;
+use App\blog\Controller\SendMail;
+use App\blog\Controller\SuperGlobals;
 
 require('./vendor/autoload.php');
 
@@ -66,16 +67,7 @@ if (isset($get['action']))
             echo 'Erreur : aucun identifiant de billet envoyé';
         }
     }
-    /*elseif ($_GET['action'] == 'createPost'){
-        if (!empty($_POST['title']) && !empty($_POST['chapo'] ) && !empty($_POST['description'] )){
-            $createPost = new Post();
-            $createPost->createPost($_POST['title'], $_POST['chapo'], $_POST['description']);
-        }
-        else{
-            echo 'tous les champs ne sont pas remplis !';
-        }
-    }*/
-     //delete a picture
+    //delete a picture
     elseif ($get['action'] == 'deletePicture'){
         if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
@@ -179,6 +171,12 @@ if (isset($get['action']))
     {
         $administration = new User();
         $administration->pageAdministration();
+    }
+    //send mail
+    elseif ($get['action'] == 'sendMail'){
+        
+        $sendMail = new SendMail();
+        $sendMail->sendMail($_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['description']);
     }
 }
 else
