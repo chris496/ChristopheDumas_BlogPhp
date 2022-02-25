@@ -8,6 +8,7 @@ class SuperGlobals
     private $_POST;
     private $_FILES;
     private $_SESSION;
+    private $_ENV;
 
     public function __construct()
     {
@@ -15,6 +16,7 @@ class SuperGlobals
         $this->_POST = (isset($_POST)) ? $_POST : null;
         $this->_FILES = (isset($_FILES)) ? $_FILES : null;
         $this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
+        $this->_ENV = (isset($_ENV)) ? $_ENV : null;
     }
 
     public function getGET($key = null): ?array
@@ -56,5 +58,14 @@ class SuperGlobals
     public function setSESSION($session)
     {
         return $_SESSION = $session;
+    }
+
+    public function getENV($key = null): ?array
+    {
+        if(null !== $key)
+        {
+            return (isset($this->_ENV["$key"])) ? $this->_ENV["$key"] : null;
+        }
+        return $this->_ENV;
     }
 }
