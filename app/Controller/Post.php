@@ -123,7 +123,6 @@ class Post extends Controller
                     $uniqueName = uniqid('', true);
                     $file = $uniqueName . "." . $extension;
                     move_uploaded_file($files['photo']['tmp_name'], 'uploads/' . basename($file));
-                    echo "L'envoi a bien été effectué !";
                 }
             }
         };

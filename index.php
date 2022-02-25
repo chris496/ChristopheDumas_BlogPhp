@@ -50,8 +50,6 @@ if (isset($get['action'])) {
         if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
             $deletePost->deletePicture();
-        } else {
-            echo 'impossible de supprimer la photo !';
         }
     }
     //delete a post
@@ -59,8 +57,6 @@ if (isset($get['action'])) {
         if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
             $deletePost->deletePost();
-        } else {
-            echo 'impossible de supprimer le post !';
         }
     }
     //create a comment
