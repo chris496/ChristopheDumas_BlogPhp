@@ -1,6 +1,6 @@
 <?php
-namespace App\blog\Controller;
 
+namespace App\blog\Controller;
 
 class SuperGlobals
 {
@@ -21,8 +21,7 @@ class SuperGlobals
 
     public function getGET($key = null): ?array
     {
-        if(null !== $key)
-        {
+        if (null !== $key) {
             return (isset($this->_GET["$key"])) ? $this->_GET["$key"] : null;
         }
         return $this->_GET;
@@ -30,8 +29,7 @@ class SuperGlobals
 
     public function getPOST($key = null)
     {
-        if(null !== $key)
-        {
+        if (null !== $key) {
             return (isset($this->_POST["$key"])) ? $this->_POST["$key"] : null;
         }
         return $this->_POST;
@@ -39,8 +37,7 @@ class SuperGlobals
 
     public function getFILES($key = null)
     {
-        if(null !== $key)
-        {
+        if (null !== $key) {
             return (isset($this->_FILES["$key"])) ? $this->_FILES["$key"] : null;
         }
         return $this->_FILES;
@@ -48,8 +45,7 @@ class SuperGlobals
 
     public function getSESSION($key = null)
     {
-        if(null !== $key)
-        {
+        if (null !== $key) {
             return (isset($this->_SESSION["$key"])) ? $this->_SESSION["$key"] : null;
         }
         return $this->_SESSION;
@@ -62,8 +58,7 @@ class SuperGlobals
 
     public function getENV($key = null): ?array
     {
-        if(null !== $key)
-        {
+        if (null !== $key) {
             return (isset($this->_ENV["$key"])) ? $this->_ENV["$key"] : null;
         }
         return $this->_ENV;

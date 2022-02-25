@@ -11,8 +11,8 @@ class UserManager extends Model
         $req = $this->db->prepare('INSERT INTO user(lastname, firstname, email, password) VALUES(?,?,?,?)');
         $newUser = $req->execute(array(
             $lastname,
-            $firstname, 
-            $email, 
+            $firstname,
+            $email,
             $hash,
         ));
         return $newUser;
@@ -29,7 +29,7 @@ class UserManager extends Model
     {
         $req = $this->db->prepare('UPDATE user SET role = :role WHERE id = :id');
         $validUser = $req->execute(array(
-            'role'=> '1',
+            'role' => '1',
             'id' => $id
         ));
         return $validUser;

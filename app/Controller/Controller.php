@@ -1,4 +1,5 @@
 <?php
+
 namespace App\blog\Controller;
 
 use Twig\Environment;
@@ -11,12 +12,11 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->loader = new FilesystemLoader(dirname(__DIR__).'\View\Templates');
+        $this->loader = new FilesystemLoader(dirname(__DIR__) . '\View\Templates');
 
         $this->twig = new Environment($this->loader);
 
-        if(session_status() === PHP_SESSION_NONE)
-        {
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
@@ -26,16 +26,15 @@ abstract class Controller
         $superglobals = new SuperGlobals();
         $session = $superglobals->getSESSION();
 
-        if($session['role'] === '1')
-        {
+        if ($session['role'] === '1') {
             return
-            [
-                'id' => $session['id'],
-                'firstname' => $session['firstname'],
-                'lastname' => $session['lastname'],
-                'email' => $session['email'],
-                'role' => $session['role']
-            ];
+                [
+                    'id' => $session['id'],
+                    'firstname' => $session['firstname'],
+                    'lastname' => $session['lastname'],
+                    'email' => $session['email'],
+                    'role' => $session['role']
+                ];
         }
     }
 }

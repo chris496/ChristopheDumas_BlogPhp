@@ -23,7 +23,7 @@ class CommentManager extends Model
     {
         $req = $this->db->prepare('UPDATE comment SET isValid = :isValid WHERE id = :id');
         $validComment = $req->execute(array(
-            'isValid'=> '1',
+            'isValid' => '1',
             'id' => $id
         ));
         return $validComment;
@@ -46,11 +46,12 @@ class CommentManager extends Model
     }
 
     //delete a comment
-    public function deleteComment($id){
+    public function deleteComment($id)
+    {
         $req = $this->db->prepare('DELETE FROM comment WHERE id = :id');
         $deleteComment = $req->execute(array(
-            'id'=> $id,
-            ));
+            'id' => $id,
+        ));
         return $deleteComment;
     }
 }

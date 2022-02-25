@@ -10,141 +10,119 @@ require('./vendor/autoload.php');
 
 $superglobals = new SuperGlobals();
 $post = $superglobals->getPOST();
-$get =$superglobals->getGET();
-$files =$superglobals->getFILES();
+$get = $superglobals->getGET();
+$files = $superglobals->getFILES();
 
-if (isset($get['action']))
-{
+if (isset($get['action'])) {
     // Display all posts
-    if ($get['action'] == 'allposts')
-    {
+    if ($get['action'] == 'allposts') {
         $allPosts = new Post();
         $allPosts->allPosts();
     }
     //display a selected post
-    elseif ($get['action'] == 'getOnePost')
-    {
-        if (isset($get['id']) && $get['id'] > 0)
-        {
+    elseif ($get['action'] == 'getOnePost') {
+        if (isset($get['id']) && $get['id'] > 0) {
             $getOnePost = new Post();
             $getOnePost->getOnePost();
         }
     }
     //create a new post
-    elseif ($get['action'] == 'createPost')
-    {
-            $createPost = new Post();
-            $createPost->createPost($post['title'], $post['chapo'], $post['description'], $files['photo']);
+    elseif ($get['action'] == 'createPost') {
+        $createPost = new Post();
+        $createPost->createPost($post['title'], $post['chapo'], $post['description'], $files['photo']);
     }
     //page update a post
-    elseif ($get['action'] == 'pageUpdatePost')
-    {
-        if (isset($get['id']) && $get['id'] > 0)
-        {
+    elseif ($get['action'] == 'pageUpdatePost') {
+        if (isset($get['id']) && $get['id'] > 0) {
             $pageUpdatePost = new Post();
             $pageUpdatePost->pageUpdatePost();
         }
     }
     //update a post
-    elseif ($get['action'] == 'updatePost'){
-        if ($get['id'] > 0) 
-        {
-                $updatePost = new Post();
-                $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $files['photo']);   
+    elseif ($get['action'] == 'updatePost') {
+        if ($get['id'] > 0) {
+            $updatePost = new Post();
+            $updatePost->updatePost($get['id'], $post['title'], $post['chapo'], $post['description'], $files['photo']);
         }
     }
     //delete a picture
-    elseif ($get['action'] == 'deletePicture'){
+    elseif ($get['action'] == 'deletePicture') {
         if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
             $deletePost->deletePicture();
-        }
-        else {
+        } else {
             echo 'impossible de supprimer la photo !';
         }
     }
     //delete a post
-    elseif ($get['action'] == 'deletePost'){
+    elseif ($get['action'] == 'deletePost') {
         if (isset($get['id']) && $get['id'] > 0) {
             $deletePost = new Post();
             $deletePost->deletePost();
-        }
-        else {
+        } else {
             echo 'impossible de supprimer le post !';
         }
     }
     //create a comment
-    elseif ($get['action'] == 'createComment'){
-        if ($get['id'] > 0)
-        {
-                $createComment = new Comment();
-                $createComment->createComment($get['id'], $post['pseudo'], $post['email'], $post['description']);
+    elseif ($get['action'] == 'createComment') {
+        if ($get['id'] > 0) {
+            $createComment = new Comment();
+            $createComment->createComment($get['id'], $post['pseudo'], $post['email'], $post['description']);
         }
     }
     //validate comment
-    elseif ($get['action'] == 'validComment')
-    {
+    elseif ($get['action'] == 'validComment') {
         $validComment = new Comment();
         $validComment->validComment();
     }
     //delete a comment
-    elseif ($get['action'] == 'deleteComment'){
+    elseif ($get['action'] == 'deleteComment') {
         if ($get['id'] > 0) {
             $deleteComment = new Comment();
             $deleteComment->deleteComment();
         }
     }
     //page registration
-    elseif ($get['action'] == 'pageRegistration')
-    {
+    elseif ($get['action'] == 'pageRegistration') {
         $user = new User();
         $user->pageRegistration();
     }
     //user registration
-    elseif ($get['action'] == 'userRegistration')
-    {
+    elseif ($get['action'] == 'userRegistration') {
         $newUser = new User();
         $newUser->userRegistration($post['lastname'], $post['firstname'], $post['email'], $post['password']);
     }
     //validate user registration
-    elseif ($get['action'] == 'validUser')
-    {
+    elseif ($get['action'] == 'validUser') {
         $validUser = new User();
         $validUser->validUser();
     }
     //page login
-    elseif ($get['action'] == 'pageLogin')
-    {
+    elseif ($get['action'] == 'pageLogin') {
         $userLogin = new User();
         $userLogin->pageLogin();
     }
     //user login
-    elseif ($get['action'] == 'userLogin')
-    {
-            $userLogin = new User();
-            $userLogin->userLogin($post['email'], $post['password']);
+    elseif ($get['action'] == 'userLogin') {
+        $userLogin = new User();
+        $userLogin->userLogin($post['email'], $post['password']);
     }
     //user Logout
-    elseif ($get['action'] == 'userLogout')
-    {
+    elseif ($get['action'] == 'userLogout') {
         $userLogout = new User();
         $userLogout->userLogout();
     }
     //page Administration
-    elseif ($get['action'] == 'pageAdministration')
-    {
+    elseif ($get['action'] == 'pageAdministration') {
         $administration = new User();
         $administration->pageAdministration();
     }
     //send mail
-    elseif ($get['action'] == 'sendMail')
-    {
+    elseif ($get['action'] == 'sendMail') {
         $sendMail = new SendMail();
         $sendMail->sendMail($post['lastname'], $post['firstname'], $post['email'], $post['description']);
     }
-}
-else
-{
+} else {
     $allPosts = new Post();
     $allPosts->allPosts();
 }

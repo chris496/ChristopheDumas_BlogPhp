@@ -1,77 +1,80 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {% if sendOk %}
-    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        Message envoyé, Merci !
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% elseif sendHs %}
-    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-        Message non reçu
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% else %}
-    {% endif %}
-    <!-- Page Content-->
-    <div class="container px-4 px-lg-5">
-        <!-- Heading Row-->
-        <div class="row gx-4 gx-lg-5 align-items-center my-5">
-            <div class="col-lg-7 d-flex justify-content-center">
-                <img class="img-fluid img-profile mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="profile" />  
-            </div>    
-            <div class="col-lg-5 my-5">
-                <h1 class="font-weight-light">Bienvenue sur mon blog !</h1>
-                <h2 class="mb-0">
-                    Christophe
-                    <span class="text-primary">Dumas</span>
-                </h2>
-                <div class="subheading mb-3 mt-2">
-                    <a href="mailto:name@email.com">christophe.dumas1@gmail.com</a>
-                </div>
-                <p>Nouveau sur la planète des développeurs, je vous propose de partager mon expérience et de discuter des sujets d'actualités.</p>
-                <div>
-                    <a class="btn btn-info rounded-circle text-white" href="https://www.linkedin.com/in/christophe-dumas-92bb271b" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon linkedin">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a class="btn btn-info rounded-circle text-white" href="https://github.com/chris496" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon github">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a class="btn btn-info rounded-circle text-white" href="https://drive.google.com/file/d/1FiR0kQ9_e_RZ2MUtwdSlWauAnJc5tv9T/view?ths=true" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon CV">
-                        <i class="fas fa-graduation-cap"></i>
-                    </a>
-                </div>
-            </div>
+	{% if sendOk %}
+		<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+			Message envoyé, Merci !
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% elseif sendHs %}
+		<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+			Message non reçu
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% else %}
+	{% endif %}
+	<!-- Page Content-->
+	<div
+		class="container px-4 px-lg-5">
+		<!-- Heading Row-->
+		<div class="row gx-4 gx-lg-5 align-items-center my-5">
+			<div class="col-lg-7 d-flex justify-content-center">
+				<img class="img-fluid img-profile mb-4 mb-lg-0" src="./assets/img/profile.jpg" alt="profile"/>
+			</div>
+			<div class="col-lg-5 my-5">
+				<h1 class="font-weight-light">Bienvenue sur mon blog !</h1>
+				<h2 class="mb-0">
+					Christophe
+					<span class="text-primary">Dumas</span>
+				</h2>
+				<div class="subheading mb-3 mt-2">
+					<a href="mailto:name@email.com">christophe.dumas1@gmail.com</a>
+				</div>
+				<p>Nouveau sur la planète des développeurs, je vous propose de partager mon expérience et de discuter des sujets d'actualités.</p>
+				<div>
+					<a class="btn btn-info rounded-circle text-white" href="https://www.linkedin.com/in/christophe-dumas-92bb271b" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon linkedin">
+						<i class="fab fa-linkedin-in"></i>
+					</a>
+					<a class="btn btn-info rounded-circle text-white" href="https://github.com/chris496" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon github">
+						<i class="fab fa-github"></i>
+					</a>
+					<a class="btn btn-info rounded-circle text-white" href="https://drive.google.com/file/d/1FiR0kQ9_e_RZ2MUtwdSlWauAnJc5tv9T/view?ths=true" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon CV">
+						<i class="fas fa-graduation-cap"></i>
+					</a>
+				</div>
+			</div>
 
-            
-        </div>
-        <!-- Content Row-->
-        <!-- Call to Action-->
-            <div class="card text-white bg-light mt-5 mb-3 py-4  text-center">
-                <h2 class="text-dark my-2">Liste des articles</h2>
-            </div>
-        <div class="row gx-4 gx-lg-5">
-            {% for post in posts %}
-            <div class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="small text-muted">
-                        {% if post.update_date == '0000-00-00 00:00:00' %}
-                            {{ post.added_date | date('d/m/Y H:i') }} 
-                        {% elseif post.update_date != '0000-00-00 00:00:00' %}
-                            {{ post.update_date | date('d/m/Y H:i') }} 
-                        {% else %}
-                        {% endif %}
-                        </div>
-                        <h2 class="card-title">{{ post.title }}</h2>
-                        <p class="card-text"><strong>{{ post.chapo }}</strong></p>
-                    </div>
-                    <div class="card-footer">
-                        <a class="btn btn-primary btn-sm" href="index.php?action=getOnePost&amp;id={{ post.id }}">Voir détail</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+
+		</div>
+		<!-- Content Row-->
+		<!-- Call to Action-->
+		<div class="card text-white bg-light mt-5 mb-3 py-4  text-center">
+			<h2 class="text-dark my-2">Liste des articles</h2>
+		</div>
+		<div class="row gx-4 gx-lg-5">
+			{% for post in posts %}
+				<div class="col-md-4 mb-5">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="small text-muted">
+								{% if post.update_date == '0000-00-00 00:00:00' %}
+									{{ post.added_date | date('d/m/Y H:i') }}
+								{% elseif post.update_date != '0000-00-00 00:00:00' %}
+									{{ post.update_date | date('d/m/Y H:i') }}
+									{% else %}
+								{% endif %}
+							</div>
+							<h2 class="card-title">{{ post.title }}</h2>
+							<p class="card-text">
+								<strong>{{ post.chapo }}</strong>
+							</p>
+						</div>
+						<div class="card-footer">
+							<a class="btn btn-primary btn-sm" href="index.php?action=getOnePost&amp;id={{ post.id }}">Voir détail</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

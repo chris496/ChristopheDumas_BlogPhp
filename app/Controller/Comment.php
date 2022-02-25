@@ -1,4 +1,5 @@
 <?php
+
 namespace App\blog\Controller;
 
 use App\blog\Model\CommentManager;
@@ -13,27 +14,20 @@ class comment
         $email = htmlspecialchars($email);
         $description = htmlspecialchars($description);
 
-        if (!empty($postId) && !empty($pseudo) && !empty($email) && !empty($description))
-        {
+        if (!empty($postId) && !empty($pseudo) && !empty($email) && !empty($description)) {
             $pattern = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
             $patternEmail = '/.+\@.+\..+/';
-            if(preg_match($pattern, $pseudo) && preg_match($patternEmail, $email))
-            {
+            if (preg_match($pattern, $pseudo) && preg_match($patternEmail, $email)) {
                 $commentManager = new CommentManager();
                 $newComment = $commentManager->postComment($postId, $pseudo, $email, $description);
                 header('Location: index.php?action=getOnePost&id=' . $postId);
                 return $newComment;
-            }
-            else
-            {
+            } else {
                 $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
                     'error' => true
                 ]);
-            
             }
-        }
-        else
-        {
+        } else {
             $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
                 'vide' => true
             ]);
@@ -49,7 +43,7 @@ class comment
         $validComment = new CommentManager();
         $valid = $validComment->validComment($get['id']);
         header('Location: index.php?action=pageAdministration');
-        return $valid; 
+        return $valid;
     }
 
     //delete a comment
@@ -57,7 +51,7 @@ class comment
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
-        
+
         $postManager = new CommentManager();
         $postManager->deleteComment($get['id']);
         header('Location: index.php?action=pageAdministration');

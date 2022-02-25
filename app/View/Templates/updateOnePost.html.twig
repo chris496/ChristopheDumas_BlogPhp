@@ -1,47 +1,55 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div class="ms-2 mt-2">
-    <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
-</div>
-<div class="col-md-4 m-5 mx-auto">
-    <div class="card h-100">
-        <div class="card-body">
-            <form action="index.php?action=updatePost&amp;id={{ post.id }}" method="post" enctype="multipart/form-data">
-                {% if post.picture != null %}
-                <img src="./uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
-                <a class="nav-link p-0" href="index.php?action=deletePicture&amp;id={{ post.id }}">Supprimer la photo</a>
-                {% endif %}
-                <div class="mb-1">
-                    <label for="photo" class="form-label">Votre nouvelle photo :</label>
-                    <input type="file" class="form-control" id="photo" name="photo" />
-                </div>
-                <div class="small text-muted d-flex justify-content-between"> 
-                    <div>
-                    {% if post.update_date == '0000-00-00 00:00:00' %}
-                        {{ post.added_date | date('d/m/Y H:i') }} 
-                    {% elseif post.update_date != '0000-00-00 00:00:00' %}
-                        {{ post.update_date | date('d/m/Y H:i') }} 
-                    {% else %}
-                    {% endif %}
-                    </div> 
-                    <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
-                </div>
-                <div class="d-flex flex-column mt-3">
-                    <label for="name"><strong>Modifier le titre :</strong></label>
-                    <input class="card-title" type="text" id="title" name="title" value="{{ post.title }}">
+	<div class="ms-2 mt-2">
+		<a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+	</div>
+	<div class="col-md-4 m-5 mx-auto">
+		<div class="card h-100">
+			<div class="card-body">
+				<form action="index.php?action=updatePost&amp;id={{ post.id }}" method="post" enctype="multipart/form-data">
+					{% if post.picture != null %}
+						<img src="./uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
+						<a class="nav-link p-0" href="index.php?action=deletePicture&amp;id={{ post.id }}">Supprimer la photo</a>
+					{% endif %}
+					<div class="mb-1">
+						<label for="photo" class="form-label">Votre nouvelle photo :</label>
+						<input type="file" class="form-control" id="photo" name="photo"/>
+					</div>
+					<div class="small text-muted d-flex justify-content-between">
+						<div>
+							{% if post.update_date == '0000-00-00 00:00:00' %}
+								{{ post.added_date | date('d/m/Y H:i') }}
+							{% elseif post.update_date != '0000-00-00 00:00:00' %}
+								{{ post.update_date | date('d/m/Y H:i') }}
+								{% else %}
+							{% endif %}
+						</div>
+						<div>Auteur :
+							{{ post.firstname }}
+							{{ post.lastname }}</div>
+					</div>
+					<div class="d-flex flex-column mt-3">
+						<label for="name">
+							<strong>Modifier le titre :</strong>
+						</label>
+						<input class="card-title" type="text" id="title" name="title" value="{{ post.title }}">
 
-                    <label for="name"><strong>Modifier le chapo :</strong></label>
-                    <input class="card-title" type="text" id="chapo" name="chapo" value="{{ post.chapo }}">
+						<label for="name">
+							<strong>Modifier le chapo :</strong>
+						</label>
+						<input class="card-title" type="text" id="chapo" name="chapo" value="{{ post.chapo }}">
 
-                    <label for="name"><strong>Modifier la description :</strong></label>
-                    <textarea class="card-title" type="text" id="description" name="description" size="10">{{ post.description }}</textarea>
-                </div>
-                <div class="text-center mt-3">
-                    <input class="btn btn-primary" type="submit"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+						<label for="name">
+							<strong>Modifier la description :</strong>
+						</label>
+						<textarea class="card-title" type="text" id="description" name="description" size="10">{{ post.description }}</textarea>
+					</div>
+					<div class="text-center mt-3">
+						<input class="btn btn-primary" type="submit"/>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 {% endblock %}

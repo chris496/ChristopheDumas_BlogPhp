@@ -1,4 +1,5 @@
 <?php
+
 namespace App\blog\Controller;
 
 use App\blog\Model\PostManager;
@@ -21,20 +22,20 @@ class Post extends Controller
         return $posts;
     }
 
-     //display a selected post
+    //display a selected post
     public function getOnePost()
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
-        
+
         $user = $this->isAdmin();
         $postManager = new PostManager();
         $post = $postManager->getPost($get['id']);
-        
+
         // display comments of post
         $commentsManager = new CommentManager();
         $comments = $commentsManager->getComments($get['id']);
-        
+
         $this->twig->display('onePost.html.twig', [
             'post' => $post,
             'comments' => $comments,
@@ -47,42 +48,35 @@ class Post extends Controller
     public function createPost($title, $chapo, $description)
     {
         $superglobals = new SuperGlobals();
-        $files =$superglobals->getFILES();
-        
+        $files = $superglobals->getFILES();
+
         $title = htmlspecialchars($title);
         $chapo = htmlspecialchars($chapo);
         $description = htmlspecialchars($description);
-        
-        if (isset($files['photo']) && $files['photo']['error'] == 0)
-        {
-            if ($files['photo']['size'] <= 4000000)
-            {
+
+        if (isset($files['photo']) && $files['photo']['error'] == 0) {
+            if ($files['photo']['size'] <= 4000000) {
                 $fileInfo = pathinfo($files['photo']['name']);
                 $extension = $fileInfo['extension'];
                 $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-                if (in_array($extension, $allowedExtensions))
-                {
+                if (in_array($extension, $allowedExtensions)) {
                     $uniqueName = uniqid('', true);
-                    $file = $uniqueName.".".$extension;
+                    $file = $uniqueName . "." . $extension;
                     move_uploaded_file($files['photo']['tmp_name'], 'uploads/' . basename($file));
                 }
             }
         };
 
-        if (!empty($title) && !empty($chapo) && !empty($description))
-        {
+        if (!empty($title) && !empty($chapo) && !empty($description)) {
             $user = $this->isAdmin();
             $id = $user['id'];
             $postManager = new PostManager();
             $postManager->createPost($id, $title, $chapo, $description, $file);
             header('Location: index.php');
-        }
-        else
-        {
+        } else {
             $this->twig->display('administration.html.twig', [
                 'vide' => true
             ]);
-            
         }
     }
 
@@ -107,7 +101,7 @@ class Post extends Controller
     public function updatePost($id, $title, $chapo, $description)
     {
         $superglobals = new SuperGlobals();
-        $files =$superglobals->getFILES();
+        $files = $superglobals->getFILES();
 
         $title = htmlspecialchars($title);
         $chapo = htmlspecialchars($chapo);
@@ -116,36 +110,31 @@ class Post extends Controller
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
 
-        if (isset($files['photo']) && $files['photo']['error'] == 0)
-        {
-            $fichier = './uploads/' .$post['picture'];
-            if(file_exists($fichier)){unlink($fichier);}
-            if ($files['photo']['size'] <= 4000000)
-            {
+        if (isset($files['photo']) && $files['photo']['error'] == 0) {
+            $fichier = './uploads/' . $post['picture'];
+            if (file_exists($fichier)) {
+                unlink($fichier);
+            }
+            if ($files['photo']['size'] <= 4000000) {
                 $fileInfo = pathinfo($files['photo']['name']);
                 $extension = $fileInfo['extension'];
                 $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-                if (in_array($extension, $allowedExtensions))
-                {
+                if (in_array($extension, $allowedExtensions)) {
                     $uniqueName = uniqid('', true);
-                    $file = $uniqueName.".".$extension;
+                    $file = $uniqueName . "." . $extension;
                     move_uploaded_file($files['photo']['tmp_name'], 'uploads/' . basename($file));
                     echo "L'envoi a bien été effectué !";
                 }
             }
         };
 
-        if (!empty($title) && !empty($chapo) && !empty($description))
-        {
+        if (!empty($title) && !empty($chapo) && !empty($description)) {
             $postManager->updatePost($id, $title, $chapo, $description, $file);
             header('Location: index.php');
-        }
-        else
-        {
+        } else {
             $this->twig->display('updateOnePost.html.twig', [
                 'vide' => true
             ]);
-            
         }
     }
 
@@ -158,9 +147,11 @@ class Post extends Controller
         $postManager = new PostManager();
         $post = $postManager->getPost($get['id']);
 
-        $fichier = './uploads/' .$post['picture'];
-        if(file_exists($fichier)){unlink($fichier);}
-        
+        $fichier = './uploads/' . $post['picture'];
+        if (file_exists($fichier)) {
+            unlink($fichier);
+        }
+
         $postManager->deletePost($get['id']);
         header('Location: index.php?action=pageAdministration');
     }
@@ -174,10 +165,12 @@ class Post extends Controller
         $postManager = new PostManager();
         $post = $postManager->getPost($get['id']);
 
-        $fichier = './uploads/' .$post['picture'];
-        if(file_exists($fichier)){unlink($fichier);}
-        
+        $fichier = './uploads/' . $post['picture'];
+        if (file_exists($fichier)) {
+            unlink($fichier);
+        }
+
         $postManager->deletePicture($get['id']);
-        header('Location: index.php?action=pageUpdatePost&id=' .$get['id']);
+        header('Location: index.php?action=pageUpdatePost&id=' . $get['id']);
     }
 }

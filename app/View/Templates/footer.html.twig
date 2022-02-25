@@ -1,42 +1,42 @@
 <!-- Footer-->
 <footer class="py-5 bg-dark">
-    <div class="container px-4 px-lg-5 d-flex flex-column">
-        <p class="m-0 text-center text-white">Copyright &copy; Mon blog 2022</p>
-        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#newPost">
-            Me contacter
-        </button>>
-    </div>
+	<div class="container px-4 px-lg-5 d-flex flex-column">
+		<p class="m-0 text-center text-white">Copyright &copy; Mon blog 2022</p>
+		<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#newPost">
+			Me contacter
+		</button>>
+	</div>
 </footer>
 
 
 <!-- Modal create a form -->
-            <div class="modal fade" id="newPost" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="newPostLabel">Formulaire de contact</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="index.php?action=sendMail" method="post">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Votre nom" aria-label="lastname" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Votre prénom" aria-label="firstname" aria-describedby="basic-addon2">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="email" aria-label="mail" aria-describedby="basic-addon3">
-                                </div>   
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Votre message</span>
-                                    <textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
-                                </div>
-                                <div class="text-center mt-3">
-                                    <input class="btn btn-primary" type="submit"/>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="modal fade" id="newPost" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="newPostLabel">Formulaire de contact</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="index.php?action=sendMail" method="post">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Votre nom" aria-label="lastname" aria-describedby="basic-addon1">
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Votre prénom" aria-label="firstname" aria-describedby="basic-addon2">
+					</div>
+					<div class="input-group mb-3">
+						<input type="email" class="form-control" id="email" name="email" placeholder="email" aria-label="mail" aria-describedby="basic-addon3">
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">Votre message</span>
+						<textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
+					</div>
+					<div class="text-center mt-3">
+						<input class="btn btn-primary" type="submit"/>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

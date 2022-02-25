@@ -1,78 +1,82 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div class="ms-2 mt-2">
-    <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
-</div>
-<div class="col-md-4 m-5 mx-auto">
-    <div class="card h-100">
-        <div class="card-body">
-            {% if post.picture != null %}
-            <img src="./uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
-            {% endif %}
-            <div class="small text-muted d-flex justify-content-between">
-                <div>
-                {% if post.update_date == '0000-00-00 00:00:00' %}
-                    {{ post.added_date | date('d/m/Y H:i') }} 
-                {% elseif post.update_date != '0000-00-00 00:00:00' %}
-                    {{ post.update_date | date('d/m/Y H:i') }} 
-                {% else %}
-                {% endif %}
-                </div> 
-                <div>Auteur : {{ post.firstname }} {{ post.lastname }}</div>
-            </div>
-            <h2 class="card-title">{{ post.title }}</h2>
-            <p class="card-text"><strong>{{ post.chapo }}</strong></p>
-            <p class="card-text">{{ post.description }}</p>
-        </div>
-        <div class="card-footer d-flex justify-content-center">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Ajouter un commentaire
-            </button>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Créer un commentaire</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="index.php?action=createComment&amp;id={{ post.id }}" method="post">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="pseudo" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" type="email" id="email" name="email" placeholder="email" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>   
-                            <div class="input-group">
-                                <span class="input-group-text">Votre message</span>
-                                <textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
-                            </div>
-                            <div class="text-center mt-3">
-                                <input class="btn btn-primary mb-3" type="submit"/>
-                                <br>
-                                <span>(votre commentaire s'affichera uniquement après validation d'un modérateur)</span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>     
-        <div>
-            {% for comment in comments %}
-            {% if comment.isValid == 1 %}
-            <div class="border rounded mx-2 mt-2 p-2">
-                {{ comment.description }}
-            </div>
-            <div class="d-flex justify-content-between mx-3 fw-light mt-0">
-                <div>{{ comment.pseudo }}</div>
-                <div>{{ comment.added_date }}</div>
-            </div> 
-            {% endif %}
-            {% endfor %}
-        </div>  
-    </div>
-</div>
+	<div class="ms-2 mt-2">
+		<a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+	</div>
+	<div class="col-md-4 m-5 mx-auto">
+		<div class="card h-100">
+			<div class="card-body">
+				{% if post.picture != null %}
+					<img src="./uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
+				{% endif %}
+				<div class="small text-muted d-flex justify-content-between">
+					<div>
+						{% if post.update_date == '0000-00-00 00:00:00' %}
+							{{ post.added_date | date('d/m/Y H:i') }}
+						{% elseif post.update_date != '0000-00-00 00:00:00' %}
+							{{ post.update_date | date('d/m/Y H:i') }}
+							{% else %}
+						{% endif %}
+					</div>
+					<div>Auteur :
+						{{ post.firstname }}
+						{{ post.lastname }}</div>
+				</div>
+				<h2 class="card-title">{{ post.title }}</h2>
+				<p class="card-text">
+					<strong>{{ post.chapo }}</strong>
+				</p>
+				<p class="card-text">{{ post.description }}</p>
+			</div>
+			<div class="card-footer d-flex justify-content-center">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					Ajouter un commentaire
+				</button>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Créer un commentaire</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form action="index.php?action=createComment&amp;id={{ post.id }}" method="post">
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="pseudo" aria-label="Username" aria-describedby="basic-addon1">
+								</div>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" type="email" id="email" name="email" placeholder="email" aria-label="Username" aria-describedby="basic-addon1">
+								</div>
+								<div class="input-group">
+									<span class="input-group-text">Votre message</span>
+									<textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
+								</div>
+								<div class="text-center mt-3">
+									<input class="btn btn-primary mb-3" type="submit"/>
+									<br>
+									<span>(votre commentaire s'affichera uniquement après validation d'un modérateur)</span>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				{% for comment in comments %}
+					{% if comment.isValid == 1 %}
+						<div class="border rounded mx-2 mt-2 p-2">
+							{{ comment.description }}
+						</div>
+						<div class="d-flex justify-content-between mx-3 fw-light mt-0">
+							<div>{{ comment.pseudo }}</div>
+							<div>{{ comment.added_date }}</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

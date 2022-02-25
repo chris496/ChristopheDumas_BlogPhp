@@ -1,225 +1,235 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-{% if vide %}
-    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-        Veuillez renseigner tous les champs !
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-{% endif %}
-<div class="ms-2 mt-2">
-    <a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
-</div>
+	{% if vide %}
+		<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+			Veuillez renseigner tous les champs !
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endif %}
+	<div class="ms-2 mt-2">
+		<a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+	</div>
 
-<div class="container">
-    <div class="row m-5">
-        <div class="col">
-        <div class="card">
-            <h3 class="card-header text-center">Gestion des posts</h3>
+	<div class="container">
+		<div class="row m-5">
+			<div class="col">
+				<div class="card">
+					<h3 class="card-header text-center">Gestion des posts</h3>
 
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#newPost">
-                    Créer un post
-                </button>
+					<div class="card-body d-flex flex-column justify-content-center align-items-center">
+						<button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#newPost">
+							Créer un post
+						</button>
 
-                <button type="button" class="btn btn-info text-white my-2" data-bs-toggle="modal" data-bs-target="#updatePost">
-                    Modifier un post
-                </button>
+						<button type="button" class="btn btn-info text-white my-2" data-bs-toggle="modal" data-bs-target="#updatePost">
+							Modifier un post
+						</button>
 
-                <button type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#deletePost">
-                    Supprimer un post
-                </button>
-            </div>
-            </div>
-            <!-- Modal create a post -->
-            <div class="modal fade" id="newPost" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="newPostLabel">Créer un post</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="index.php?action=createPost" method="post" enctype="multipart/form-data">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="titre" aria-label="title" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="chapo" name="chapo" placeholder="chapo" aria-label="chapo" aria-describedby="basic-addon2">
-                                </div>   
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Votre message</span>
-                                    <textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="photo" class="form-label">Votre photo :</label>
-                                    <input type="file" class="form-control" id="photo" name="photo" />
-                                </div>
-                                <div class="text-center mt-3">
-                                    <input class="btn btn-primary" type="submit"/>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+						<button type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#deletePost">
+							Supprimer un post
+						</button>
+					</div>
+				</div>
+				<!-- Modal create a post -->
+				<div class="modal fade" id="newPost" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="newPostLabel">Créer un post</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form action="index.php?action=createPost" method="post" enctype="multipart/form-data">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" id="title" name="title" placeholder="titre" aria-label="title" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" id="chapo" name="chapo" placeholder="chapo" aria-label="chapo" aria-describedby="basic-addon2">
+									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text">Votre message</span>
+										<textarea class="form-control" id="description" name="description" aria-label="With textarea"></textarea>
+									</div>
+									<div class="mb-3">
+										<label for="photo" class="form-label">Votre photo :</label>
+										<input type="file" class="form-control" id="photo" name="photo"/>
+									</div>
+									<div class="text-center mt-3">
+										<input class="btn btn-primary" type="submit"/>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 
-            <!-- Modal update a post -->
-            <div class="modal fade" id="updatePost" tabindex="-1" aria-labelledby="updatePostLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="updatePostLabel">Modifier un post</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            {% for post in posts %}
-                            <div class="border border-dark rounded p-1 mb-2">
-                                <h4>{{ post.title }}</h4> 
-                                <p>{{ post.chapo }}</p> 
-                                <span>
-                                {% if post.update_date == '0000-00-00 00:00:00' %}
-                                {{ post.added_date | date('d/m/Y H:i') }} 
-                                {% elseif post.update_date != '0000-00-00 00:00:00' %}
-                                {{ post.update_date | date('d/m/Y H:i') }} 
-                                {% else %}
-                                {% endif %}
-                                </span><a class="nav-link badge bg-warning rounded ms-2" href="index.php?action=pageUpdatePost&amp;id={{ post.id }}">Modifier</a></div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<!-- Modal update a post -->
+				<div class="modal fade" id="updatePost" tabindex="-1" aria-labelledby="updatePostLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="updatePostLabel">Modifier un post</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								{% for post in posts %}
+									<div class="border border-dark rounded p-1 mb-2">
+										<h4>{{ post.title }}</h4>
+										<p>{{ post.chapo }}</p>
+										<span>
+											{% if post.update_date == '0000-00-00 00:00:00' %}
+												{{ post.added_date | date('d/m/Y H:i') }}
+											{% elseif post.update_date != '0000-00-00 00:00:00' %}
+												{{ post.update_date | date('d/m/Y H:i') }}
+												{% else %}
+											{% endif %}
+										</span>
+										<a class="nav-link badge bg-warning rounded ms-2" href="index.php?action=pageUpdatePost&amp;id={{ post.id }}">Modifier</a>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
 
-            <!-- Modal delete a post -->
-            <div class="modal fade" id="deletePost" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deletePostLabel">Supprimer un post</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            {% for post in posts %}
-                            <div class="border border-dark rounded p-1 mb-2">
-                                <h4>{{ post.title }}</h4> 
-                                <p>{{ post.chapo }}</p> 
-                                <span>
-                                {% if post.update_date == '0000-00-00 00:00:00' %}
-                                {{ post.added_date | date('d/m/Y H:i') }} 
-                                {% elseif post.update_date != '0000-00-00 00:00:00' %}
-                                {{ post.update_date | date('d/m/Y H:i') }} 
-                                {% else %}
-                                {% endif %}
-                                </span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deletePost&amp;id={{ post.id }}">Supprimer</a></div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-    
-        <div class="col">
-        <div class="card">
-            <h3 class="card-header text-center">Gestion des commentaires</h3>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#validComment">
-                    Valider un commentaire
-                </button>
+				<!-- Modal delete a post -->
+				<div class="modal fade" id="deletePost" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="deletePostLabel">Supprimer un post</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								{% for post in posts %}
+									<div class="border border-dark rounded p-1 mb-2">
+										<h4>{{ post.title }}</h4>
+										<p>{{ post.chapo }}</p>
+										<span>
+											{% if post.update_date == '0000-00-00 00:00:00' %}
+												{{ post.added_date | date('d/m/Y H:i') }}
+											{% elseif post.update_date != '0000-00-00 00:00:00' %}
+												{{ post.update_date | date('d/m/Y H:i') }}
+												{% else %}
+											{% endif %}
+										</span>
+										<a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deletePost&amp;id={{ post.id }}">Supprimer</a>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteComment">
-                    Supprimer un commentaire
-                </button>
-            </div>
-            </div>
-        </div>
 
-        <!-- Modal validate a comment -->
-            <div class="modal fade" id="validComment" tabindex="-1" aria-labelledby="validCommentLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="validCommentLabel">Valider un commentaire</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            {% for allComment in allComments %}
-                            {% if allComment.isValid != 1 %}
-                            <div class="border border-dark rounded p-1 mb-2">
-                                <div class="d-flex justify-content-between">
-                                    <h5>{{ allComment.pseudo }}</h5> 
-                                    <span>{{ allComment.email }}</span>
-                                </div> 
-                                <p>{{ allComment.description }}</p> 
-                                <span>{{ allComment.added_date }}</span><a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validComment&amp;id={{ allComment.id }}">Valider</a></div>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="col">
+				<div class="card">
+					<h3 class="card-header text-center">Gestion des commentaires</h3>
+					<div class="card-body d-flex flex-column justify-content-center align-items-center">
+						<button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#validComment">
+							Valider un commentaire
+						</button>
 
-        <!-- Modal delete a comment -->
-            <div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="deleteCommentLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteCommentLabel">Supprimer un commentaire</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            {% for allComment in allComments %}
-                            <div class="border border-dark rounded p-1 mb-2">
-                                <div class="d-flex justify-content-between">
-                                    <h5>{{ allComment.pseudo }}</h5> 
-                                    <span>{{ allComment.email }}</span>
-                                </div> 
-                                <p>{{ allComment.description }}</p> 
-                                <span>{{ allComment.added_date }}</span><a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deleteComment&amp;id={{ allComment.id }}">Supprimer</a></div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-    
-        <div class="col">
-        <div class="card">
-            <h3 class="card-header text-center">Gestion des connexions</h3>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#validUser">
-                    Valider un nouvel utilisateur
-                </button>
-            </div>
-        </div>
+						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteComment">
+							Supprimer un commentaire
+						</button>
+					</div>
+				</div>
+			</div>
 
-        <!-- Modal validate a user -->
-            <div class="modal fade" id="validUser" tabindex="-1" aria-labelledby="validUserLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="validUserLabel">Valider un utilisateur</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        
-                           {% for allUser in allUsers %}
-                            {% if allUser.role != 1 %}
-                            <div class="border border-dark rounded p-1 mb-2">
-                                <h5>{{ allUser.firstname }} {{ allUser.lastname }}</h5> 
-                                <div class="d-flex justify-content-between">
-                                <h6>{{ allUser.email }}</h6>
-                                <span>{{ allComment.added_date }}</span><a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validUser&amp;id={{ allUser.id }}">Valider</a></div>
-                                </div>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-   </div>
-</div>   
+			<!-- Modal validate a comment -->
+			<div class="modal fade" id="validComment" tabindex="-1" aria-labelledby="validCommentLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="validCommentLabel">Valider un commentaire</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							{% for allComment in allComments %}
+								{% if allComment.isValid != 1 %}
+									<div class="border border-dark rounded p-1 mb-2">
+										<div class="d-flex justify-content-between">
+											<h5>{{ allComment.pseudo }}</h5>
+											<span>{{ allComment.email }}</span>
+										</div>
+										<p>{{ allComment.description }}</p>
+										<span>{{ allComment.added_date }}</span>
+										<a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validComment&amp;id={{ allComment.id }}">Valider</a>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal delete a comment -->
+			<div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="deleteCommentLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="deleteCommentLabel">Supprimer un commentaire</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							{% for allComment in allComments %}
+								<div class="border border-dark rounded p-1 mb-2">
+									<div class="d-flex justify-content-between">
+										<h5>{{ allComment.pseudo }}</h5>
+										<span>{{ allComment.email }}</span>
+									</div>
+									<p>{{ allComment.description }}</p>
+									<span>{{ allComment.added_date }}</span>
+									<a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deleteComment&amp;id={{ allComment.id }}">Supprimer</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col">
+				<div class="card">
+					<h3 class="card-header text-center">Gestion des connexions</h3>
+					<div class="card-body d-flex flex-column justify-content-center align-items-center">
+						<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#validUser">
+							Valider un nouvel utilisateur
+						</button>
+					</div>
+				</div>
+
+				<!-- Modal validate a user -->
+				<div class="modal fade" id="validUser" tabindex="-1" aria-labelledby="validUserLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="validUserLabel">Valider un utilisateur</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+
+								{% for allUser in allUsers %}
+									{% if allUser.role != 1 %}
+										<div class="border border-dark rounded p-1 mb-2">
+											<h5>{{ allUser.firstname }}
+												{{ allUser.lastname }}</h5>
+											<div class="d-flex justify-content-between">
+												<h6>{{ allUser.email }}</h6>
+												<span>{{ allComment.added_date }}</span>
+												<a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validUser&amp;id={{ allUser.id }}">Valider</a>
+											</div>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
-
