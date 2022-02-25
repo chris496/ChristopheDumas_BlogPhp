@@ -23,7 +23,7 @@ function dbConnect()
             "$password"
         );
         return $pdo;
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
     }
 }
