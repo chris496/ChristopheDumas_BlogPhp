@@ -6,11 +6,18 @@ use PHPMailer\PHPMailer\SMTP;
 use App\blog\Model\PostManager;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
+use Symfony\Component\Dotenv\Dotenv;
 
 class SendMail extends Controller
 {
     public function sendMail($lastname, $firstname, $email, $description)
     {
+        $dotenv = new Dotenv();   
+        $dotenv->load($_SERVER['DOCUMENT_ROOT'] . '/.env');
+        
+        $superglobals = new SuperGlobals();
+        $env = $superglobals->getENV();
+
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
 
@@ -26,10 +33,10 @@ class SendMail extends Controller
                 $mail = new PHPMailer(true);
                 //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.hostinger.com';
+                $mail->Host       = $env['MAIL_HOST'];
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'administrateur@p2.christophedumas1.fr';
-                $mail->Password   = 'Hostingertit@496';
+                $mail->Username   = $env['MAIL_USERNAME'];
+                $mail->Password   = $env['MAIL_PASSWORD'];
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                 $mail->Port       = 465;
                 $mail->SMTPOptions = array(
@@ -41,8 +48,8 @@ class SendMail extends Controller
                 );
 
                 //Recipients
-                $mail->setFrom('administrateur@p2.christophedumas1.fr', 'BlogPHP');
-                $mail->addAddress('administrateur@p2.christophedumas1.fr');
+                $mail->setFrom($env['MAIL_USERNAME'], 'BlogPHP');
+                $mail->addAddress($env['MAIL_USERNAME']);
                 $mail->addReplyTo($email, 'Adresse mail du contact');
 
                 //Content
