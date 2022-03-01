@@ -6,8 +6,9 @@ use App\blog\Controller\SuperGlobals;
 function dbConnect()
 {
     $dotenv = new Dotenv();
+    
     $dotenv->load(__DIR__ . '/.env');
-
+    
     $superglobals = new SuperGlobals();
     $env = $superglobals->getENV();
 
@@ -24,6 +25,6 @@ function dbConnect()
         );
         return $pdo;
     } catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
+        
     }
 }

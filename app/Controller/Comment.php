@@ -6,7 +6,6 @@ use App\blog\Model\CommentManager;
 
 class comment
 {
-    //create a new comment
     public function createComment($postId, $pseudo, $email, $description)
     {
         $postId = htmlspecialchars($postId);
@@ -14,25 +13,35 @@ class comment
         $email = htmlspecialchars($email);
         $description = htmlspecialchars($description);
 
-        if (!empty($postId) && !empty($pseudo) && !empty($email) && !empty($description)) {
+        if (!empty($postId) && !empty($pseudo) && !empty($email) && !empty($description))
+        {
             $pattern = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
             $patternEmail = '/.+\@.+\..+/';
-            if (preg_match($pattern, $pseudo) && preg_match($patternEmail, $email)) {
+            if(preg_match($pattern, $pseudo) && preg_match($patternEmail, $email))
+            {
                 $commentManager = new CommentManager();
                 $newComment = $commentManager->postComment($postId, $pseudo, $email, $description);
                 header('Location: index.php?action=getOnePost&id=' . $postId);
                 return $newComment;
-            } else {
-                $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
-                    'error' => true
-                ]);
             }
-        } else {
+            else
+            {
+                header('Location: index.php?action=getOnePost&id=' . $postId);
+                //dd('index.php?action=getOnePost&id=' . $postId);
+                /*$this->twig->display('onePost.html.twig', [
+                    'post' => $postId,
+                ]);*/
+
+            }
+        }
+        else
+        {
             $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
                 'vide' => true
             ]);
         }
     }
+    
 
     //validate comment
     public function validComment()
@@ -43,6 +52,7 @@ class comment
         $validComment = new CommentManager();
         $valid = $validComment->validComment($get['id']);
         header('Location: index.php?action=pageAdministration');
+        //$this->twig->display('administration.html.twig');
         return $valid;
     }
 
@@ -55,5 +65,6 @@ class comment
         $postManager = new CommentManager();
         $postManager->deleteComment($get['id']);
         header('Location: index.php?action=pageAdministration');
+        //$this->twig->display('administration.html.twig');
     }
 }

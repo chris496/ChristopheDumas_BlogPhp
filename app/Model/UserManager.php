@@ -35,7 +35,7 @@ class UserManager extends Model
         return $validUser;
     }
 
-    public function userLogin($email, $password)
+    public function userLogin($email)
     {
         //login user
         $req = $this->db->prepare('SELECT * FROM user WHERE email = :email');

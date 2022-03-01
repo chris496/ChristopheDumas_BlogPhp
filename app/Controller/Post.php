@@ -3,6 +3,7 @@
 namespace App\blog\Controller;
 
 use App\blog\Model\PostManager;
+use App\blog\Model\UserManager;
 use App\blog\Model\CommentManager;
 
 class Post extends Controller
@@ -50,6 +51,10 @@ class Post extends Controller
         $superglobals = new SuperGlobals();
         $files = $superglobals->getFILES();
 
+        $user = $this->isAdmin();
+        $postsManager = new PostManager();
+        $posts = $postsManager->getPosts();
+
         $title = htmlspecialchars($title);
         $chapo = htmlspecialchars($chapo);
         $description = htmlspecialchars($description);
@@ -72,7 +77,10 @@ class Post extends Controller
             $id = $user['id'];
             $postManager = new PostManager();
             $postManager->createPost($id, $title, $chapo, $description, $file);
-            header('Location: index.php');
+            $this->twig->display('index.html.twig', [
+                'posts' => $posts,
+                'user' => $user
+            ]);
         } else {
             $this->twig->display('administration.html.twig', [
                 'vide' => true
@@ -103,6 +111,9 @@ class Post extends Controller
         $superglobals = new SuperGlobals();
         $files = $superglobals->getFILES();
 
+        $postsManager = new PostManager();
+        $posts = $postsManager->getPosts();
+
         $title = htmlspecialchars($title);
         $chapo = htmlspecialchars($chapo);
         $description = htmlspecialchars($description);
@@ -129,7 +140,11 @@ class Post extends Controller
 
         if (!empty($title) && !empty($chapo) && !empty($description)) {
             $postManager->updatePost($id, $title, $chapo, $description, $file);
-            header('Location: index.php');
+            $user = $this->isAdmin();
+            $this->twig->display('index.html.twig', [
+                'posts' => $posts,
+                'user' => $user
+            ]);
         } else {
             $this->twig->display('updateOnePost.html.twig', [
                 'vide' => true
@@ -140,9 +155,20 @@ class Post extends Controller
     //delete a post
     public function deletePost()
     {
+        $user = $this->isAdmin();
+        
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
+        $postsManager = new PostManager();
+        $posts = $postsManager->getPosts();
+
+        $commentsManager = new CommentManager();
+        $allComments = $commentsManager->getAllComments();
+
+        $UsersManager = new UserManager();
+        $allUsers = $UsersManager->getAllUsers();
+        
         $postManager = new PostManager();
         $post = $postManager->getPost($get['id']);
 
@@ -152,7 +178,13 @@ class Post extends Controller
         }
 
         $postManager->deletePost($get['id']);
-        header('Location: index.php?action=pageAdministration');
+        //header('Location: index.php?action=pageAdministration');
+        $this->twig->display('administration.html.twig', [
+            'user' => $user,
+            'allUsers' => $allUsers,
+            'posts' => $posts,
+            'allComments' => $allComments
+        ]);
     }
 
     //delete a picture
@@ -170,6 +202,7 @@ class Post extends Controller
         }
 
         $postManager->deletePicture($get['id']);
-        header('Location: index.php?action=pageUpdatePost&id=' . $get['id']);
+        //header('Location: index.php?action=pageUpdatePost&id=' . $get['id']);
+        $this->twig->display('updateOnePost.html.twig');
     }
 }
