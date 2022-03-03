@@ -15,12 +15,10 @@ class Post extends Controller
         $user = $this->isAdmin();
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
-
-        $this->twig->display('index.html.twig', [
+        return $this->twig->display('index.html.twig', [
             'posts' => $posts,
             'user' => $user
         ]);
-        return $posts;
     }
 
     //display a selected post
@@ -37,12 +35,11 @@ class Post extends Controller
         $commentsManager = new CommentManager();
         $comments = $commentsManager->getComments($get['id']);
 
-        $this->twig->display('onePost.html.twig', [
+        return $this->twig->display('onePost.html.twig', [
             'post' => $post,
             'comments' => $comments,
             'user' => $user
         ]);
-        return $post;
     }
 
     //create a new post
@@ -97,11 +94,10 @@ class Post extends Controller
         $postManager = new PostManager();
         $post = $postManager->getPost($get['id']);
 
-        $this->twig->display('updateOnePost.html.twig', [
+        return $this->twig->display('updateOnePost.html.twig', [
             'post' => $post,
             'user' => $user
         ]);
-        return $post;
     }
 
     //update a post
@@ -177,7 +173,7 @@ class Post extends Controller
 
         $postManager->deletePost($get['id']);
         //header('Location: index.php?action=pageAdministration');
-        $this->twig->display('administration.html.twig', [
+        return $this->twig->display('administration.html.twig', [
             'user' => $user,
             'allUsers' => $allUsers,
             'posts' => $posts,
@@ -200,7 +196,6 @@ class Post extends Controller
         }
 
         $postManager->deletePicture($get['id']);
-        //header('Location: index.php?action=pageUpdatePost&id=' . $get['id']);
-        $this->twig->display('updateOnePost.html.twig');
+        return header('Location: index.php?action=pageUpdatePost&id=' . $get['id']);
     }
 }

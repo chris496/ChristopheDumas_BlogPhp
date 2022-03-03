@@ -66,10 +66,10 @@ class PostManager extends Model
     public function deletePicture($id)
     {
         $req = $this->db->prepare('UPDATE post SET picture = :picture WHERE id = :id');
-        $deletePost = $req->execute(array(
+        $deletePicture = $req->execute(array(
             'id' => $id,
             'picture' => ''
         ));
-        return $deletePost;
+        return $deletePicture;
     }
 }

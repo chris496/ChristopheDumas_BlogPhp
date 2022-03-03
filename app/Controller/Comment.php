@@ -26,7 +26,7 @@ class comment
             }
             return header('Location: index.php?action=getOnePost&id=' . $postId);
         }
-        $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
+        return $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
             'vide' => true
         ]);
     }
@@ -38,10 +38,8 @@ class comment
         $get = $superglobals->getGET();
 
         $validComment = new CommentManager();
-        $valid = $validComment->validComment($get['id']);
-        header('Location: index.php?action=pageAdministration');
-        //$this->twig->display('administration.html.twig');
-        return $valid;
+        $validComment->validComment($get['id']);
+        return header('Location: index.php?action=pageAdministration');
     }
 
     //delete a comment
@@ -52,7 +50,6 @@ class comment
 
         $postManager = new CommentManager();
         $postManager->deleteComment($get['id']);
-        header('Location: index.php?action=pageAdministration');
-        //$this->twig->display('administration.html.twig');
+        return header('Location: index.php?action=pageAdministration');
     }
 }

@@ -17,7 +17,7 @@ abstract class Controller
         $this->twig = new Environment($this->loader);
 
         if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+            return session_start();
         }
     }
 

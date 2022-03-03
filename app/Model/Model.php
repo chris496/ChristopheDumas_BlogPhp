@@ -10,6 +10,6 @@ class Model
 
     public function __construct()
     {
-        $this->db = dbConnect();
+        return $this->db = dbConnect();
     }
 }
