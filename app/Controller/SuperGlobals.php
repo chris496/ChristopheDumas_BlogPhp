@@ -9,6 +9,7 @@ class SuperGlobals
     private $_FILES;
     private $_SESSION;
     private $_ENV;
+    private $_SERVER;
 
     public function __construct()
     {
@@ -17,6 +18,7 @@ class SuperGlobals
         $this->_FILES = (isset($_FILES)) ? $_FILES : null;
         $this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
         $this->_ENV = (isset($_ENV)) ? $_ENV : null;
+        $this->_SERVER = (isset($_SERVER)) ? $_SERVER : null;
     }
 
     public function getGET($key = null): ?array
@@ -62,5 +64,13 @@ class SuperGlobals
             return (isset($this->_ENV["$key"])) ? $this->_ENV["$key"] : null;
         }
         return $this->_ENV;
+    }
+
+    public function getSERVER($key = null): ?array
+    {
+        if (null !== $key) {
+            return (isset($this->_SERVER["$key"])) ? $this->_SERVER["$key"] : null;
+        }
+        return $this->_SERVER;
     }
 }
