@@ -31,17 +31,15 @@ class User extends Controller
             if (preg_match($pattern, $lastname) && preg_match($pattern, $firstname) && preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && ($email != $newLogin['email'])) {
                 $userManager = new UserManager();
                 $userManager->userRegistration($lastname, $firstname, $email, $password);
-                $this->twig->display('login.html.twig');
-            } else {
-                $this->twig->display('registration.html.twig', [
-                    'error' => true
-                ]);
-            }
-        } else {
-            $this->twig->display('registration.html.twig', [
-                'vide' => true
+                return $this->twig->display('login.html.twig');
+            } 
+            return $this->twig->display('registration.html.twig', [
+                'error' => true
             ]);
         }
+        return $this->twig->display('registration.html.twig', [
+            'vide' => true
+        ]);
     }
     //validate user
     public function validUser()
@@ -98,16 +96,14 @@ class User extends Controller
                     'role' => $session1['role'],
                     'user' => $newLogin
                 ]);
-            } else {
-                $this->twig->display('login.html.twig', [
-                    'error' => true
-                ]);
             }
-        } else {
-            $this->twig->display('login.html.twig', [
-                'vide' => true
+            return $this->twig->display('login.html.twig', [
+                'error' => true
             ]);
         }
+        return $this->twig->display('login.html.twig', [
+            'vide' => true
+        ]);
     }
 
     //user Logout

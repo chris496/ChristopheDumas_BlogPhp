@@ -59,22 +59,20 @@ class SendMail extends Controller
                 //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
                 if (!$mail->send()) {
-                    $this->twig->display('index.html.twig', [
+                    return $this->twig->display('index.html.twig', [
                         'posts' => $posts,
                         'sendHs' => true
                     ]);
-                } else {
-                    $this->twig->display('index.html.twig', [
-                        'posts' => $posts,
-                        'sendOk' => true
-                    ]);
                 }
+                return $this->twig->display('index.html.twig', [
+                    'posts' => $posts,
+                    'sendOk' => true
+                ]);
             }
-        } else {
-            $this->twig->display('index.html.twig', [
-                'posts' => $posts,
-                'vide' => true
-            ]);
         }
+        return $this->twig->display('index.html.twig', [
+            'posts' => $posts,
+            'vide' => true
+        ]);
     }
 }

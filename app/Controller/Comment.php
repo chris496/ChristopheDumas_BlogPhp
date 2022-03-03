@@ -24,25 +24,13 @@ class comment
                 header('Location: index.php?action=getOnePost&id=' . $postId);
                 return $newComment;
             }
-            else
-            {
-                header('Location: index.php?action=getOnePost&id=' . $postId);
-                //dd('index.php?action=getOnePost&id=' . $postId);
-                /*$this->twig->display('onePost.html.twig', [
-                    'post' => $postId,
-                ]);*/
-
-            }
+            return header('Location: index.php?action=getOnePost&id=' . $postId);
         }
-        else
-        {
-            $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
-                'vide' => true
-            ]);
-        }
+        $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
+            'vide' => true
+        ]);
     }
     
-
     //validate comment
     public function validComment()
     {

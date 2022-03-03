@@ -77,15 +77,14 @@ class Post extends Controller
             $id = $user['id'];
             $postManager = new PostManager();
             $postManager->createPost($id, $title, $chapo, $description, $file);
-            $this->twig->display('index.html.twig', [
+            return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
                 'user' => $user
             ]);
-        } else {
-            $this->twig->display('administration.html.twig', [
-                'vide' => true
-            ]);
-        }
+        } 
+        return $this->twig->display('administration.html.twig', [
+            'vide' => true
+        ]);
     }
 
     //page update post
@@ -141,15 +140,14 @@ class Post extends Controller
         if (!empty($title) && !empty($chapo) && !empty($description)) {
             $postManager->updatePost($id, $title, $chapo, $description, $file);
             $user = $this->isAdmin();
-            $this->twig->display('index.html.twig', [
+            return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
                 'user' => $user
             ]);
-        } else {
-            $this->twig->display('updateOnePost.html.twig', [
-                'vide' => true
-            ]);
         }
+        return $this->twig->display('updateOnePost.html.twig', [
+            'vide' => true
+        ]);
     }
 
     //delete a post
