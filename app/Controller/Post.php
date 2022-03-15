@@ -11,7 +11,6 @@ class Post extends Controller
     //display all posts
     public function allPosts()
     {
-
         $user = $this->isAdmin();
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
@@ -22,18 +21,19 @@ class Post extends Controller
     }
 
     //display a selected post
-    public function getOnePost()
+    public function getOnePost($id)
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
         $user = $this->isAdmin();
         $postManager = new PostManager();
-        $post = $postManager->getPost($get['id']);
+        //dd($get['id']);
+        $post = $postManager->getPost($id);
 
         // display comments of post
         $commentsManager = new CommentManager();
-        $comments = $commentsManager->getComments($get['id']);
+        $comments = $commentsManager->getComments($id);
 
         return $this->twig->display('onePost.html.twig', [
             'post' => $post,
@@ -74,10 +74,11 @@ class Post extends Controller
             $id = $user['id'];
             $postManager = new PostManager();
             $postManager->createPost($id, $title, $chapo, $description, $file);
-            return $this->twig->display('index.html.twig', [
+            return header('Location: index.php');
+            /*return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
                 'user' => $user
-            ]);
+            ]);*/
         } 
         return $this->twig->display('administration.html.twig', [
             'vide' => true
@@ -85,14 +86,14 @@ class Post extends Controller
     }
 
     //page update post
-    public function pageUpdatePost()
+    public function pageUpdatePost($id)
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
         $user = $this->isAdmin();
         $postManager = new PostManager();
-        $post = $postManager->getPost($get['id']);
+        $post = $postManager->getPost($id);
 
         return $this->twig->display('updateOnePost.html.twig', [
             'post' => $post,
@@ -141,13 +142,14 @@ class Post extends Controller
                 'user' => $user
             ]);
         }
+        //dd('test');
         return $this->twig->display('updateOnePost.html.twig', [
             'vide' => true
         ]);
     }
 
     //delete a post
-    public function deletePost()
+    public function deletePost($id)
     {
         $user = $this->isAdmin();
         
@@ -164,38 +166,38 @@ class Post extends Controller
         $allUsers = $UsersManager->getAllUsers();
         
         $postManager = new PostManager();
-        $post = $postManager->getPost($get['id']);
+        $post = $postManager->getPost($id);
 
         $fichier = './uploads/' . $post['picture'];
         if (file_exists($fichier)) {
             unlink($fichier);
         }
 
-        $postManager->deletePost($get['id']);
-        //header('Location: index.php?action=pageAdministration');
-        return $this->twig->display('administration.html.twig', [
+        $postManager->deletePost($id);
+        return header('Location: ../pageAdministration');
+        /*return $this->twig->display('administration.html.twig', [
             'user' => $user,
             'allUsers' => $allUsers,
             'posts' => $posts,
             'allComments' => $allComments
-        ]);
+        ]);*/
     }
 
     //delete a picture
-    public function deletePicture()
+    public function deletePicture($id)
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
         $postManager = new PostManager();
-        $post = $postManager->getPost($get['id']);
+        $post = $postManager->getPost($id);
 
         $fichier = './uploads/' . $post['picture'];
         if (file_exists($fichier)) {
             unlink($fichier);
         }
 
-        $postManager->deletePicture($get['id']);
-        return header('Location: index.php?action=pageUpdatePost&id=' . $get['id']);
+        $postManager->deletePicture($id);
+        return header('Location: pageUpdatePost/' . $id);
     }
 }

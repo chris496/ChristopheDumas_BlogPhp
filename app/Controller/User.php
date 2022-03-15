@@ -42,16 +42,14 @@ class User extends Controller
         ]);
     }
     //validate user
-    public function validUser()
+    public function validUser($id)
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
         $validUser = new UserManager();
-        $valid = $validUser->validUser($get['id']);
-        $this->twig->display('administration.html.twig', [
-            'userValid' => $valid,
-        ]);
+        $valid = $validUser->validUser($id);
+        return header('Location: ../pageAdministration');
     }
     //page login
     public function pageLogin()

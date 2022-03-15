@@ -6,50 +6,49 @@ use App\blog\Model\CommentManager;
 
 class comment
 {
-    public function createComment($postId, $pseudo, $email, $description)
+    public function createComment($id, $pseudo, $email, $description)
     {
-        $postId = htmlspecialchars($postId);
+        $postId = htmlspecialchars($id);
         $pseudo = htmlspecialchars($pseudo);
         $email = htmlspecialchars($email);
         $description = htmlspecialchars($description);
 
-        if (!empty($postId) && !empty($pseudo) && !empty($email) && !empty($description))
+        if (!empty($id) && !empty($pseudo) && !empty($email) && !empty($description))
         {
             $pattern = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
             $patternEmail = '/.+\@.+\..+/';
             if(preg_match($pattern, $pseudo) && preg_match($patternEmail, $email))
             {
                 $commentManager = new CommentManager();
-                $newComment = $commentManager->postComment($postId, $pseudo, $email, $description);
-                header('Location: index.php?action=getOnePost&id=' . $postId);
-                return $newComment;
+                $commentManager->postComment($id, $pseudo, $email, $description);
+                return header('Location: ../' . $id);
             }
-            return header('Location: index.php?action=getOnePost&id=' . $postId);
+            return header('Location: getOnePost/' . $id);
         }
-        return $this->twig->display('index.php?action=getOnePost&id=' . $postId, [
+        return $this->twig->display('getOnePost/' . $id, [
             'vide' => true
         ]);
     }
     
     //validate comment
-    public function validComment()
+    public function validComment($id)
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
         $validComment = new CommentManager();
-        $validComment->validComment($get['id']);
-        return header('Location: index.php?action=pageAdministration');
+        $validComment->validComment($id);
+        return header('Location: ../pageAdministration');
     }
 
     //delete a comment
-    public function deleteComment()
+    public function deleteComment($id)
     {
         $superglobals = new SuperGlobals();
         $get = $superglobals->getGET();
 
         $postManager = new CommentManager();
-        $postManager->deleteComment($get['id']);
-        return header('Location: index.php?action=pageAdministration');
+        $postManager->deleteComment($id);
+        return header('Location: ../pageAdministration');
     }
 }
