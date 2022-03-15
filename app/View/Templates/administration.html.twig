@@ -8,7 +8,7 @@
 		</div>
 	{% endif %}
 	<div class="ms-2 mt-2">
-		<a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+		<a class="btn btn-primary btn-sm" href="./index.php">Retour à l'accueil</a>
 	</div>
 
 	<div class="container">
@@ -40,7 +40,7 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
-								<form action="index.php?action=createPost" method="post" enctype="multipart/form-data">
+								<form action="createPost" method="post" enctype="multipart/form-data">
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" id="title" name="title" placeholder="titre" aria-label="title" aria-describedby="basic-addon1">
 									</div>
@@ -85,7 +85,7 @@
 												{% else %}
 											{% endif %}
 										</span>
-										<a class="nav-link badge bg-warning rounded ms-2" href="index.php?action=pageUpdatePost&amp;id={{ post.id }}">Modifier</a>
+										<a class="nav-link badge bg-warning rounded ms-2" href="pageUpdatePost/{{ post.id }}">Modifier</a>
 									</div>
 								{% endfor %}
 							</div>
@@ -114,7 +114,7 @@
 												{% else %}
 											{% endif %}
 										</span>
-										<a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deletePost&amp;id={{ post.id }}">Supprimer</a>
+										<a class="nav-link badge bg-danger rounded ms-2" href="deletePost/{{ post.id }}">Supprimer</a>
 									</div>
 								{% endfor %}
 							</div>
@@ -157,7 +157,7 @@
 										</div>
 										<p>{{ allComment.description }}</p>
 										<span>{{ allComment.added_date }}</span>
-										<a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validComment&amp;id={{ allComment.id }}">Valider</a>
+										<a class="nav-link badge bg-success rounded ms-2" href="validComment/{{ allComment.id }}">Valider</a>
 									</div>
 								{% endif %}
 							{% endfor %}
@@ -183,7 +183,7 @@
 									</div>
 									<p>{{ allComment.description }}</p>
 									<span>{{ allComment.added_date }}</span>
-									<a class="nav-link badge bg-danger rounded ms-2" href="index.php?action=deleteComment&amp;id={{ allComment.id }}">Supprimer</a>
+									<a class="nav-link badge bg-danger rounded ms-2" href="deleteComment/{{ allComment.id }}">Supprimer</a>
 								</div>
 							{% endfor %}
 						</div>
@@ -220,7 +220,7 @@
 											<div class="d-flex justify-content-between">
 												<h6>{{ allUser.email }}</h6>
 												<span>{{ allComment.added_date }}</span>
-												<a class="nav-link badge bg-success rounded ms-2" href="index.php?action=validUser&amp;id={{ allUser.id }}">Valider</a>
+												<a class="nav-link badge bg-success rounded ms-2" href="validUser/{{ allUser.id }}">Valider</a>
 											</div>
 										</div>
 									{% endif %}

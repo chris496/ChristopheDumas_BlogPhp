@@ -2,13 +2,13 @@
 
 {% block body %}
 	<div class="ms-2 mt-2">
-		<a class="btn btn-primary btn-sm" href="index.php">Retour à l'accueil</a>
+		<a class="btn btn-primary btn-sm" href="../index.php">Retour à l'accueil</a>
 	</div>
 	<div class="col-md-4 m-5 mx-auto">
 		<div class="card h-100">
 			<div class="card-body">
 				{% if post.picture != null %}
-					<img src="./uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
+					<img src="../uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
 				{% endif %}
 				<div class="small text-muted d-flex justify-content-between">
 					<div>
@@ -43,7 +43,7 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form action="index.php?action=createComment&amp;id={{ post.id }}" method="post">
+							<form action="createComment/{{ post.id }}" method="post">
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="pseudo" aria-label="Username" aria-describedby="basic-addon1">
 								</div>
