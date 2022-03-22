@@ -6,7 +6,7 @@
 
 ## Getting Started &#x1F3C1;
 
-* Ce site doit être exécuté en local (phase de développement)  
+*   Ce site doit être exécuté en local (phase de développement)
 
 ## Prerequisites &#x1F4DC;
 

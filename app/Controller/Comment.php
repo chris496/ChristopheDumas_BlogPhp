@@ -22,7 +22,7 @@ class comment
                 $commentManager = new CommentManager();
                 $commentManager->postComment($id, $pseudo, $email, $description);
                 //return header('Location: ../' . $id);$user = $this->isAdmin();
-                $postManager = new PostManager();
+                //$postManager = new PostManager();
                 //$post = $postManager->getPost($id);
                 //$comments = $commentManager->getComments($id);
 
