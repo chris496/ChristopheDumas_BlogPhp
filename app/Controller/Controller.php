@@ -25,7 +25,9 @@ abstract class Controller
     {
         $superglobals = new SuperGlobals();
         $session = $superglobals->getSESSION();
-
+        if($session === []){
+            return;
+        }
         if ($session['role'] === '1') {
             return
                 [

@@ -6,7 +6,6 @@ use App\blog\Controller\SuperGlobals;
 function dbConnect()
 {
     $dotenv = new Dotenv();
-    
     $dotenv->load(__DIR__ . '/.env');
     
     $superglobals = new SuperGlobals();

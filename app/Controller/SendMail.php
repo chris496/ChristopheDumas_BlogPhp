@@ -12,11 +12,8 @@ class SendMail extends Controller
 {
     public function sendMail($lastname, $firstname, $email, $description)
     {
-        $superglobals = new SuperGlobals();
-        $server = $superglobals->getSERVER();
-
         $dotenv = new Dotenv();   
-        $dotenv->load($server['DOCUMENT_ROOT'] . '/.env');
+        $dotenv->load(dirname(__FILE__,3) . '/.env');
         
         $superglobals = new SuperGlobals();
         $env = $superglobals->getENV();

@@ -2,7 +2,7 @@
 
 {% block body %}
 	<div class="ms-2 mt-2">
-		<a class="btn btn-primary btn-sm" href="../index.php">Retour à l'accueil</a>
+		<a class="btn btn-primary btn-sm" href="/ChristopheDumas_BlogPhp/accueil">Retour à l'accueil</a>
 	</div>
 	<div class="col-md-4 m-5 mx-auto">
 		<div class="card h-100">
@@ -30,20 +30,20 @@
 				<p class="card-text">{{ post.description }}</p>
 			</div>
 			<div class="card-footer d-flex justify-content-center">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalAddComment">
 					Ajouter un commentaire
 				</button>
 			</div>
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="ModalAddComment" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Créer un commentaire</h5>
+							<h5 class="modal-title" id="ModalLabel">Créer un commentaire</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form action="createComment/{{ post.id }}" method="post">
+							<form action="../createComment/{{ post.id }}" method="post">
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="pseudo" aria-label="Username" aria-describedby="basic-addon1">
 								</div>

@@ -9,7 +9,7 @@ class PostManager extends Model
     //display all posts
     public function getPosts()
     {
-        $req = $this->db->query('SELECT id, title, chapo, update_date FROM post');
+        $req = $this->db->query('SELECT id, title, chapo, slug, update_date FROM post');
         $posts = $req->fetchAll();
         return $posts;
     }
@@ -17,23 +17,23 @@ class PostManager extends Model
     //display a selected post
     public function getPost($postId)
     {
-        $req = $this->db->prepare('SELECT lastname, firstname, post.id, title, chapo, picture, description, post.added_date, post.update_date FROM user INNER JOIN post ON user.id = post.fk_user_id WHERE post.id = :id');
+        $req = $this->db->prepare('SELECT lastname, firstname, post.id, title, chapo, picture, slug, description, post.added_date, post.update_date FROM user INNER JOIN post ON user.id = post.fk_user_id WHERE post.id = :id');
         $req->execute(array('id' => $postId));
         $post = $req->fetch();
         return $post;
     }
 
     //create a new post
-    public function createPost($id, $title, $chapo, $description, $file)
+    public function createPost($id, $title, $chapo, $description, $file, $slug)
     {
-        //dd($id, $title, $chapo, $description, $file);
-        $req = $this->db->prepare('INSERT INTO post(fk_user_id, title, chapo, description, picture, added_date) VALUES(:fk_user_id, :title, :chapo, :description, :picture, :create_at)');
+        $req = $this->db->prepare('INSERT INTO post(fk_user_id, title, chapo, description, picture, slug, added_date) VALUES(:fk_user_id, :title, :chapo, :description, :picture, :slug, :create_at)');
         $newPost = $req->execute(array(
             'fk_user_id' => $id,
             'title' => $title,
             'chapo' => $chapo,
             'description' => $description,
             'picture' => $file,
+            'slug' => $slug,
             ':create_at' => date('Y-m-d H:i:s')
         ));
         return $newPost;

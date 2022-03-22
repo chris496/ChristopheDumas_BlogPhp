@@ -2,13 +2,13 @@
 
 namespace App\blog\Controller;
 
+use App\blog\Model\PostManager;
 use App\blog\Model\CommentManager;
 
 class comment
 {
     public function createComment($id, $pseudo, $email, $description)
     {
-        $postId = htmlspecialchars($id);
         $pseudo = htmlspecialchars($pseudo);
         $email = htmlspecialchars($email);
         $description = htmlspecialchars($description);
@@ -21,11 +21,16 @@ class comment
             {
                 $commentManager = new CommentManager();
                 $commentManager->postComment($id, $pseudo, $email, $description);
-                return header('Location: ../' . $id);
+                //return header('Location: ../' . $id);$user = $this->isAdmin();
+                $postManager = new PostManager();
+                $post = $postManager->getPost($id);
+                $comments = $commentManager->getComments($id);
+
+                return header('Location: ../post/' .$id);
             }
-            return header('Location: getOnePost/' . $id);
+            return header('Location: ../post/' .$id);
         }
-        return $this->twig->display('getOnePost/' . $id, [
+        return $this->twig->display('onePost.html.twig', [
             'vide' => true
         ]);
     }
@@ -33,9 +38,6 @@ class comment
     //validate comment
     public function validComment($id)
     {
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
         $validComment = new CommentManager();
         $validComment->validComment($id);
         return header('Location: ../pageAdministration');
@@ -44,9 +46,6 @@ class comment
     //delete a comment
     public function deleteComment($id)
     {
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
         $postManager = new CommentManager();
         $postManager->deleteComment($id);
         return header('Location: ../pageAdministration');

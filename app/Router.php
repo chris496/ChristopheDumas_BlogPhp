@@ -108,7 +108,7 @@ class Router
                 $newUser->userRegistration($post['lastname'], $post['firstname'], $post['email'], $post['password']);
                 break;
                 //send mail
-            case 'createComment':
+            case 'sendMail':
                 $sendMail = new SendMail();
                 $sendMail->sendMail($post['lastname'], $post['firstname'], $post['email'], $post['description']);
                 break;

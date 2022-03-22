@@ -44,11 +44,8 @@ class User extends Controller
     //validate user
     public function validUser($id)
     {
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
         $validUser = new UserManager();
-        $valid = $validUser->validUser($id);
+        $validUser->validUser($id);
         return header('Location: ../pageAdministration');
     }
     //page login
@@ -75,7 +72,9 @@ class User extends Controller
             $patternEmail = '/.+\@.+\..+/';
             $patternPassword = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
             if (preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (password_verify($password, $newLogin['password']))) {
-                session_start();
+                if(session_status() !== PHP_SESSION_ACTIVE){
+                    session_start();
+                }
                 $session['id'] = $newLogin['id'];
                 $session['firstname'] = $newLogin['firstname'];
                 $session['lastname'] = $newLogin['lastname'];
@@ -85,7 +84,7 @@ class User extends Controller
                 $superglobals = new SuperGlobals();
                 $session1 = $superglobals->setSESSION($session);
 
-                $this->twig->display('index.html.twig', [
+                return $this->twig->display('index.html.twig', [
                     'posts' => $posts,
                     'id' => $session1['id'],
                     'firstname' => $session1['firstname'],

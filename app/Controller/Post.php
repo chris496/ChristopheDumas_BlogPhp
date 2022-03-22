@@ -2,6 +2,7 @@
 
 namespace App\blog\Controller;
 
+use Cocur\Slugify\Slugify;
 use App\blog\Model\PostManager;
 use App\blog\Model\UserManager;
 use App\blog\Model\CommentManager;
@@ -23,12 +24,8 @@ class Post extends Controller
     //display a selected post
     public function getOnePost($id)
     {
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
         $user = $this->isAdmin();
         $postManager = new PostManager();
-        //dd($get['id']);
         $post = $postManager->getPost($id);
 
         // display comments of post
@@ -45,13 +42,22 @@ class Post extends Controller
     //create a new post
     public function createPost($title, $chapo, $description)
     {
+        $slugify = new Slugify();
+        $slug = $slugify->slugify($title);
+
         $superglobals = new SuperGlobals();
         $files = $superglobals->getFILES();
 
         $user = $this->isAdmin();
-        $postsManager = new PostManager();
-        $posts = $postsManager->getPosts();
+        $postManager = new PostManager();
+        $posts = $postManager->getPosts();
 
+        $commentsManager = new CommentManager();
+        $allComments = $commentsManager->getAllComments();
+
+        $UsersManager = new UserManager();
+        $allUsers = $UsersManager->getAllUsers();
+        
         $title = htmlspecialchars($title);
         $chapo = htmlspecialchars($chapo);
         $description = htmlspecialchars($description);
@@ -72,25 +78,27 @@ class Post extends Controller
         if (!empty($title) && !empty($chapo) && !empty($description)) {
             $user = $this->isAdmin();
             $id = $user['id'];
-            $postManager = new PostManager();
-            $postManager->createPost($id, $title, $chapo, $description, $file);
-            return header('Location: index.php');
-            /*return $this->twig->display('index.html.twig', [
+            $file = isset($file)?$file:'';
+            $postManager->createPost($id, $title, $chapo, $description, $file, $slug);
+            $posts = $postManager->getPosts();
+            
+            return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
                 'user' => $user
-            ]);*/
+            ]);
         } 
         return $this->twig->display('administration.html.twig', [
-            'vide' => true
+            'vide' => true,
+            'user' => $user,
+            'allUsers' => $allUsers,
+            'posts' => $posts,
+            'allComments' => $allComments
         ]);
     }
 
     //page update post
     public function pageUpdatePost($id)
     {
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
         $user = $this->isAdmin();
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
@@ -106,10 +114,7 @@ class Post extends Controller
     {
         $superglobals = new SuperGlobals();
         $files = $superglobals->getFILES();
-
-        $postsManager = new PostManager();
-        $posts = $postsManager->getPosts();
-
+        
         $title = htmlspecialchars($title);
         $chapo = htmlspecialchars($chapo);
         $description = htmlspecialchars($description);
@@ -118,7 +123,7 @@ class Post extends Controller
         $post = $postManager->getPost($id);
 
         if (isset($files['photo']) && $files['photo']['error'] == 0) {
-            $fichier = './uploads/' . $post['picture'];
+            $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post['picture'];
             if (file_exists($fichier)) {
                 unlink($fichier);
             }
@@ -135,14 +140,16 @@ class Post extends Controller
         };
 
         if (!empty($title) && !empty($chapo) && !empty($description)) {
-            $postManager->updatePost($id, $title, $chapo, $description, $file);
             $user = $this->isAdmin();
+            $file = isset($file)?$file:'';
+            $postManager->updatePost($id, $title, $chapo, $description, $file);
+            $posts = $postManager->getPosts();
+            
             return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
                 'user' => $user
             ]);
         }
-        //dd('test');
         return $this->twig->display('updateOnePost.html.twig', [
             'vide' => true
         ]);
@@ -151,24 +158,10 @@ class Post extends Controller
     //delete a post
     public function deletePost($id)
     {
-        $user = $this->isAdmin();
-        
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
-        $postsManager = new PostManager();
-        $posts = $postsManager->getPosts();
-
-        $commentsManager = new CommentManager();
-        $allComments = $commentsManager->getAllComments();
-
-        $UsersManager = new UserManager();
-        $allUsers = $UsersManager->getAllUsers();
-        
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
 
-        $fichier = './uploads/' . $post['picture'];
+        $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post['picture'];
         if (file_exists($fichier)) {
             unlink($fichier);
         }
@@ -186,9 +179,6 @@ class Post extends Controller
     //delete a picture
     public function deletePicture($id)
     {
-        $superglobals = new SuperGlobals();
-        $get = $superglobals->getGET();
-
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
 

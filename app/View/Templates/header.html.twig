@@ -14,19 +14,19 @@
 							{{ user.lastname }}</li>
 					{% endif %}
 					<li class="nav-item badge">
-						<a class="nav-link active" aria-current="page" href="accueil">Accueil</a>
+						<a class="nav-link active" aria-current="page" href="/ChristopheDumas_BlogPhp/accueil">Accueil</a>
 					</li>
 					{% if user.role == 0 %}
 						<li class="nav-item badge">
-							<a class="nav-link" href="pageRegistration">Inscription</a>
+							<a class="nav-link" href="/ChristopheDumas_BlogPhp/pageRegistration">Inscription</a>
 						</li>
 						<li class="nav-item badge">
-							<a class="nav-link" href="pageLogin">Connexion</a>
+							<a class="nav-link" href="/ChristopheDumas_BlogPhp/pageLogin">Connexion</a>
 						</li>
 					{% endif %}
 					{% if user.role == 1 %}
 						<li class="nav-item badge bg-info rounded me-2">
-							<a class="nav-link text-white" href="pageAdministration">Administration</a>
+							<a class="nav-link text-white" href="/ChristopheDumas_BlogPhp/pageAdministration">Administration</a>
 						</li>
 						<li class="nav-item badge bg-danger rounded">
 							<a class="nav-link text-white" href="userLogout">Déconnexion</a>
