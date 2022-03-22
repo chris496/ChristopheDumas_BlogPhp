@@ -6,11 +6,11 @@
 
 ## Getting Started &#x1F3C1;
 
-* Ce site doit être exécuté en local (phase de développement)
+* Ce site doit être exécuté en local (phase de développement)  
 
 ## Prerequisites &#x1F4DC;
 
-* Apache (version utilisé : 2.4.46)
+* Apache (version utilisé : 2.4.46)  
 * Php (version utilisé : 7.4.9)
 * Mysql (version utilisé : 8.0.21) ou autre bdd sql
 * Composer

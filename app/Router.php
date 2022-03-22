@@ -13,13 +13,14 @@ class Router
     public function router()
     {
         $superglobals = new SuperGlobals();
+        $server = $superglobals->getSERVER();
         $post = $superglobals->getPOST();
         $files = $superglobals->getFILES();
-        $urlArray = explode("/", $_SERVER["REQUEST_URI"]);
+        $urlArray = explode("/", $server["REQUEST_URI"]);
         if (count($urlArray) > 3) {
             $id = $urlArray[count($urlArray) - 1];
             $path = $urlArray[count($urlArray) - 2];
-        } else {
+        }else {
             $path = $urlArray[count($urlArray) - 1];
         }
         if ($path == "" || $path == "accueil") {
