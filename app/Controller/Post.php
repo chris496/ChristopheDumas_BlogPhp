@@ -134,7 +134,7 @@ class Post extends Controller
         $url_slug = $this->UrlSlug();
 
         if (isset($files['photo']) && $files['photo']['error'] == 0) {
-            $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post['picture'];
+            $fichier = $url_slug. '/uploads/' . $post['picture'];
             if (file_exists($fichier)) {
                 unlink($fichier);
             }

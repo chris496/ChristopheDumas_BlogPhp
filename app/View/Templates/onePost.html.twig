@@ -8,7 +8,7 @@
 		<div class="card h-100">
 			<div class="card-body">
 				{% if post.picture != null %}
-					<img src="../uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
+					<img src="{{ url }}/uploads/{{ post.picture }}" class="card-img-top img-fluid rounded mb-4 mb-lg-0" alt="picture">
 				{% endif %}
 				<div class="small text-muted d-flex justify-content-between">
 					<div>
