@@ -26,6 +26,8 @@ class SendMail extends Controller
         $email = htmlspecialchars($email);
         $description = htmlspecialchars($description);
 
+        $url_slug = $this->UrlSlug();
+
         if (!empty($lastname) && !empty($firstname) && !empty($email) && !empty($description)) {
             $pattern = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
             $patternEmail = '/.+\@.+\..+/';
@@ -61,18 +63,21 @@ class SendMail extends Controller
                 if (!$mail->send()) {
                     return $this->twig->display('index.html.twig', [
                         'posts' => $posts,
-                        'sendHs' => true
+                        'sendHs' => true,
+                        'url' => $url_slug
                     ]);
                 }
                 return $this->twig->display('index.html.twig', [
                     'posts' => $posts,
-                    'sendOk' => true
+                    'sendOk' => true,
+                    'url' => $url_slug
                 ]);
             }
         }
         return $this->twig->display('index.html.twig', [
             'posts' => $posts,
-            'vide' => true
+            'vide' => true,
+            'url' => $url_slug
         ]);
     }
 }

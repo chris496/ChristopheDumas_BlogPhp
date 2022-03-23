@@ -11,7 +11,10 @@ class User extends Controller
     //page registration
     public function pageRegistration()
     {
-        $this->twig->display('registration.html.twig');
+        $url_slug = $this->UrlSlug();
+        $this->twig->display('registration.html.twig', [
+            'url' => $url_slug
+        ]);
     }
     //user registration
     public function userRegistration($lastname, $firstname, $email, $password)
@@ -51,7 +54,10 @@ class User extends Controller
     //page login
     public function pageLogin()
     {
-        $this->twig->display('login.html.twig');
+        $url_slug = $this->UrlSlug();
+        $this->twig->display('login.html.twig', [
+            'url' => $url_slug
+        ]);
     }
 
     //user login
@@ -67,6 +73,8 @@ class User extends Controller
 
         $email = htmlspecialchars($email);
         $password = htmlspecialchars($password);
+
+        $url_slug = $this->UrlSlug();
 
         if (!empty($email) && !empty($password)) {
             $patternEmail = '/.+\@.+\..+/';
@@ -91,7 +99,8 @@ class User extends Controller
                     'lastname' => $session1['lastname'],
                     'email' => $session1['email'],
                     'role' => $session1['role'],
-                    'user' => $newLogin
+                    'user' => $newLogin,
+                    'url' => $url_slug
                 ]);
             }
             return $this->twig->display('login.html.twig', [
@@ -106,11 +115,13 @@ class User extends Controller
     //user Logout
     public function userLogout()
     {
+        $url_slug = $this->UrlSlug();
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
         session_destroy();
         $this->twig->display('index.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
+            'url' => $url_slug
         ]);
     }
 
@@ -126,12 +137,15 @@ class User extends Controller
         $UsersManager = new UserManager();
         $allUsers = $UsersManager->getAllUsers();
 
+        $url_slug = $this->UrlSlug();
+
         $user = $this->isAdmin();
         $this->twig->display('administration.html.twig', [
             'user' => $user,
             'allUsers' => $allUsers,
             'posts' => $posts,
-            'allComments' => $allComments
+            'allComments' => $allComments,
+            'url' => $url_slug
         ]);
     }
 }

@@ -13,11 +13,13 @@ class Post extends Controller
     public function allPosts()
     {
         $user = $this->isAdmin();
+        $url_slug = $this->UrlSlug();
         $postsManager = new PostManager();
         $posts = $postsManager->getPosts();
         return $this->twig->display('index.html.twig', [
             'posts' => $posts,
-            'user' => $user
+            'user' => $user,
+            'url' => $url_slug
         ]);
     }
 
@@ -25,6 +27,7 @@ class Post extends Controller
     public function getOnePost($id)
     {
         $user = $this->isAdmin();
+        $url_slug = $this->UrlSlug();
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
 
@@ -35,7 +38,8 @@ class Post extends Controller
         return $this->twig->display('onePost.html.twig', [
             'post' => $post,
             'comments' => $comments,
-            'user' => $user
+            'user' => $user,
+            'url' => $url_slug
         ]);
     }
 
@@ -49,6 +53,7 @@ class Post extends Controller
         $files = $superglobals->getFILES();
 
         $user = $this->isAdmin();
+        $url_slug = $this->UrlSlug();
         $postManager = new PostManager();
         $posts = $postManager->getPosts();
 
@@ -84,7 +89,8 @@ class Post extends Controller
             
             return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
-                'user' => $user
+                'user' => $user,
+                'url' => $url_slug
             ]);
         } 
         return $this->twig->display('administration.html.twig', [
@@ -92,7 +98,8 @@ class Post extends Controller
             'user' => $user,
             'allUsers' => $allUsers,
             'posts' => $posts,
-            'allComments' => $allComments
+            'allComments' => $allComments,
+            'url' => $url_slug
         ]);
     }
 
@@ -100,12 +107,14 @@ class Post extends Controller
     public function pageUpdatePost($id)
     {
         $user = $this->isAdmin();
+        $url_slug = $this->UrlSlug();
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
 
         return $this->twig->display('updateOnePost.html.twig', [
             'post' => $post,
-            'user' => $user
+            'user' => $user,
+            'url' => $url_slug
         ]);
     }
 
@@ -121,6 +130,8 @@ class Post extends Controller
 
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
+
+        $url_slug = $this->UrlSlug();
 
         if (isset($files['photo']) && $files['photo']['error'] == 0) {
             $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post['picture'];
@@ -147,11 +158,13 @@ class Post extends Controller
             
             return $this->twig->display('index.html.twig', [
                 'posts' => $posts,
-                'user' => $user
+                'user' => $user,
+                'url' => $url_slug
             ]);
         }
         return $this->twig->display('updateOnePost.html.twig', [
-            'vide' => true
+            'vide' => true,
+            'url' => $url_slug
         ]);
     }
 

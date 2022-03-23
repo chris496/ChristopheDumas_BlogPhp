@@ -4,6 +4,8 @@ namespace App\blog\Controller;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Symfony\Component\Dotenv\Dotenv;
+use App\blog\Controller\SuperGlobals;
 
 abstract class Controller
 {
@@ -38,5 +40,17 @@ abstract class Controller
                     'role' => $session['role']
                 ];
         }
+    }
+
+    public function UrlSlug()
+    {
+        $dotenv = new Dotenv();
+        $dotenv->load(dirname(__FILE__,3) . '/.env');
+    
+        $superglobals = new SuperGlobals();
+        $env = $superglobals->getENV();
+
+        $url_slug = $env['URL_SLUG'];
+        return $url_slug;
     }
 }

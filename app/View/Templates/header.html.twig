@@ -2,7 +2,7 @@
 {% block body %}
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="accueil">Mon blog</a>
+			<a class="navbar-brand" href="{{ url }}/accueil">Mon blog</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -14,19 +14,19 @@
 							{{ user.lastname }}</li>
 					{% endif %}
 					<li class="nav-item badge">
-						<a class="nav-link active" aria-current="page" href="/ChristopheDumas_BlogPhp/accueil">Accueil</a>
+						<a class="nav-link active" aria-current="page" href="{{ url }}/accueil">Accueil</a>
 					</li>
 					{% if user.role == 0 %}
 						<li class="nav-item badge">
-							<a class="nav-link" href="/ChristopheDumas_BlogPhp/pageRegistration">Inscription</a>
+							<a class="nav-link" href="{{ url }}/pageRegistration">Inscription</a>
 						</li>
 						<li class="nav-item badge">
-							<a class="nav-link" href="/ChristopheDumas_BlogPhp/pageLogin">Connexion</a>
+							<a class="nav-link" href="{{ url }}/pageLogin">Connexion</a>
 						</li>
 					{% endif %}
 					{% if user.role == 1 %}
 						<li class="nav-item badge bg-info rounded me-2">
-							<a class="nav-link text-white" href="/ChristopheDumas_BlogPhp/pageAdministration">Administration</a>
+							<a class="nav-link text-white" href="{{ url }}/pageAdministration">Administration</a>
 						</li>
 						<li class="nav-item badge bg-danger rounded">
 							<a class="nav-link text-white" href="userLogout">Déconnexion</a>
