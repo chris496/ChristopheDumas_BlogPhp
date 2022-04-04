@@ -36,7 +36,7 @@ class User extends Controller
             if (preg_match($pattern, $lastname) && preg_match($pattern, $firstname) && preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (!$newLogin)) {
                 $userManager = new UserManager();
                 $userManager->userRegistration($lastname, $firstname, $email, $password);
-                $this->twig->display('login.html.twig', [
+                return $this->twig->display('login.html.twig', [
                     'url' => $url_slug
                 ]);
             } 
