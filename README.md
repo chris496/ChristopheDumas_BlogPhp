@@ -38,6 +38,7 @@ composer install
 php -S localhost:8000
 ```
 
+*   dans l'application pour accéder à la partie administration, vous connecter avec l'@ : admin@mail.fr et le mdp : Password1
 ## Authors &#x1F60E;
 
 *   **Christophe Dumas** - [chris496](https://github.com/chris496)

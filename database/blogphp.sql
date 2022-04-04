@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 21 mars 2022 à 22:37
--- Version du serveur :  8.0.21
--- Version de PHP : 7.4.9
+-- Généré le : dim. 03 avr. 2022 à 09:46
+-- Version du serveur : 8.0.27
+-- Version de PHP : 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `fk_post_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_post_id` (`fk_post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,11 @@ CREATE TABLE IF NOT EXISTS `post` (
   `fk_user_id` int NOT NULL,
   PRIMARY KEY (`id`,`slug`),
   KEY `fk_user` (`fk_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `post`
+--
 
 -- --------------------------------------------------------
 
@@ -79,7 +83,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `update_date` datetime NOT NULL,
   PRIMARY KEY (`id`,`email`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `role`, `added_date`, `update_date`) VALUES
+(34, 'admin', 'admin', 'admin@mail.fr', '$2y$10$j/1nZEmNY02f/pfRkV6kkeZf108PZK18624Qzr8LzOKnohQC0j27W', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 --
 -- Contraintes pour les tables déchargées
