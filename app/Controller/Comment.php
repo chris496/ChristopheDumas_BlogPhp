@@ -5,13 +5,15 @@ namespace App\blog\Controller;
 use App\blog\Model\PostManager;
 use App\blog\Model\CommentManager;
 
-class comment
+class comment extends Controller
 {
     public function createComment($id, $pseudo, $email, $description)
     {
         $pseudo = htmlspecialchars($pseudo);
         $email = htmlspecialchars($email);
         $description = htmlspecialchars($description);
+
+        $url_slug = $this->UrlSlug();
 
         if (!empty($id) && !empty($pseudo) && !empty($email) && !empty($description))
         {
@@ -21,17 +23,16 @@ class comment
             {
                 $commentManager = new CommentManager();
                 $commentManager->postComment($id, $pseudo, $email, $description);
-                //return header('Location: ../' . $id);$user = $this->isAdmin();
-                //$postManager = new PostManager();
-                //$post = $postManager->getPost($id);
-                //$comments = $commentManager->getComments($id);
-
                 return header('Location: ../post/' .$id);
             }
-            return header('Location: ../post/' .$id);
+            return $this->twig->display('errors.html.twig', [
+            'error' => true,
+            'url' => $url_slug
+        ]);
         }
-        return $this->twig->display('onePost.html.twig', [
-            'vide' => true
+        return $this->twig->display('errors.html.twig', [
+            'error' => true,
+            'url' => $url_slug
         ]);
     }
     

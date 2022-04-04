@@ -12,6 +12,8 @@ class SendMail extends Controller
 {
     public function sendMail($lastname, $firstname, $email, $description)
     {
+        $user = $this->isAdmin();
+
         $dotenv = new Dotenv();   
         $dotenv->load(dirname(__FILE__,3) . '/.env');
         
@@ -64,20 +66,23 @@ class SendMail extends Controller
                     return $this->twig->display('index.html.twig', [
                         'posts' => $posts,
                         'sendHs' => true,
-                        'url' => $url_slug
+                        'url' => $url_slug,
+                        'user' => $user
                     ]);
                 }
                 return $this->twig->display('index.html.twig', [
                     'posts' => $posts,
                     'sendOk' => true,
-                    'url' => $url_slug
+                    'url' => $url_slug,
+                    'user' => $user
                 ]);
             }
         }
         return $this->twig->display('index.html.twig', [
             'posts' => $posts,
             'vide' => true,
-            'url' => $url_slug
+            'url' => $url_slug,
+            'user' => $user
         ]);
     }
 }

@@ -16,7 +16,7 @@
 					<li class="nav-item badge">
 						<a class="nav-link active" aria-current="page" href="{{ url }}/accueil">Accueil</a>
 					</li>
-					{% if user.role == 0 %}
+					{% if user.role != 1 %}
 						<li class="nav-item badge">
 							<a class="nav-link" href="{{ url }}/pageRegistration">Inscription</a>
 						</li>

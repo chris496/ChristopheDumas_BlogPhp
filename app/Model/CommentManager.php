@@ -31,7 +31,7 @@ class CommentManager extends Model
     //display all comments
     public function getAllComments()
     {
-        $req = $this->db->query('SELECT * FROM comment');
+        $req = $this->db->query('SELECT * FROM comment ORDER BY added_date ASC');
         $allComments = $req->fetchAll();
         return $allComments;
     }

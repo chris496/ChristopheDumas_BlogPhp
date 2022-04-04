@@ -9,7 +9,7 @@ class PostManager extends Model
     //display all posts
     public function getPosts()
     {
-        $req = $this->db->query('SELECT id, title, chapo, slug, update_date FROM post');
+        $req = $this->db->query('SELECT id, title, chapo, slug, added_date, update_date FROM post ORDER BY added_date ASC');
         $posts = $req->fetchAll();
         return $posts;
     }

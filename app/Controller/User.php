@@ -21,6 +21,8 @@ class User extends Controller
     {
         $userManager = new UserManager();
         $newLogin = $userManager->userLogin($email, $password);
+        
+        $url_slug = $this->UrlSlug();
 
         $lastname = htmlspecialchars($lastname);
         $firstname = htmlspecialchars($firstname);
@@ -30,18 +32,22 @@ class User extends Controller
         if (!empty($lastname) && !empty($firstname) && !empty($email) && !empty($password)) {
             $pattern = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
             $patternEmail = '/.+\@.+\..+/';
-            $patternPassword = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
-            if (preg_match($pattern, $lastname) && preg_match($pattern, $firstname) && preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && ($email != $newLogin['email'])) {
+            $patternPassword = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/';
+            if (preg_match($pattern, $lastname) && preg_match($pattern, $firstname) && preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (!$newLogin)) {
                 $userManager = new UserManager();
                 $userManager->userRegistration($lastname, $firstname, $email, $password);
-                return $this->twig->display('login.html.twig');
+                $this->twig->display('login.html.twig', [
+                    'url' => $url_slug
+                ]);
             } 
             return $this->twig->display('registration.html.twig', [
-                'error' => true
+                'error' => true,
+                'url' => $url_slug
             ]);
         }
         return $this->twig->display('registration.html.twig', [
-            'vide' => true
+            'vide' => true,
+            'url' => $url_slug
         ]);
     }
     //validate user
@@ -78,7 +84,7 @@ class User extends Controller
 
         if (!empty($email) && !empty($password)) {
             $patternEmail = '/.+\@.+\..+/';
-            $patternPassword = '/^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,15}$/';
+            $patternPassword = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/';
             if (preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (password_verify($password, $newLogin['password']))) {
                 if(session_status() !== PHP_SESSION_ACTIVE){
                     session_start();
@@ -104,11 +110,13 @@ class User extends Controller
                 ]);
             }
             return $this->twig->display('login.html.twig', [
-                'error' => true
+                'error' => true,
+                'url' => $url_slug
             ]);
         }
         return $this->twig->display('login.html.twig', [
-            'vide' => true
+            'vide' => true,
+            'url' => $url_slug
         ]);
     }
 
