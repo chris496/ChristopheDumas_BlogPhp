@@ -2,10 +2,12 @@
 
 namespace App\blog\Controller;
 
+use App\blog\Entity\PostEntity;
 use App\blog\Model\PostManager;
+use App\blog\Entity\CommentEntity;
 use App\blog\Model\CommentManager;
 
-class comment extends Controller
+class CommentController extends Controller
 {
     public function createComment($id, $pseudo, $email, $description)
     {
@@ -21,8 +23,16 @@ class comment extends Controller
             $patternEmail = '/.+\@.+\..+/';
             if(preg_match($pattern, $pseudo) && preg_match($patternEmail, $email))
             {
+                $postEntity = new PostEntity();
+                $postId = $postEntity
+                    ->setId($id);
+                $commentEntity = new CommentEntity();
+                $comment = $commentEntity
+                    ->setPseudo($pseudo)
+                    ->setEmail($email)
+                    ->setDescription($description);
                 $commentManager = new CommentManager();
-                $commentManager->postComment($id, $pseudo, $email, $description);
+                $commentManager->postComment($postId, $comment);
                 return header('Location: ../post/' .$id);
             }
             return $this->twig->display('errors.html.twig', [

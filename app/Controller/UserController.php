@@ -2,11 +2,13 @@
 
 namespace App\blog\Controller;
 
+use App\blog\SuperGlobals;
+use App\blog\Entity\UserEntity;
 use App\blog\Model\PostManager;
 use App\blog\Model\UserManager;
 use App\blog\Model\CommentManager;
 
-class User extends Controller
+class UserController extends Controller
 {
     //page registration
     public function pageRegistration()
@@ -34,8 +36,14 @@ class User extends Controller
             $patternEmail = '/.+\@.+\..+/';
             $patternPassword = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/';
             if (preg_match($pattern, $lastname) && preg_match($pattern, $firstname) && preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (!$newLogin)) {
+                $userEntity = new UserEntity();
+                $user = $userEntity
+                    ->setLastname($lastname)
+                    ->setFirstname($firstname)
+                    ->setEmail($email)
+                    ->setPassword($password);
                 $userManager = new UserManager();
-                $userManager->userRegistration($lastname, $firstname, $email, $password);
+                $userManager->userRegistration($user);
                 return $this->twig->display('login.html.twig', [
                     'url' => $url_slug
                 ]);
@@ -76,7 +84,6 @@ class User extends Controller
 
         $userManager = new UserManager();
         $newLogin = $userManager->userLogin($email, $password);
-
         $email = htmlspecialchars($email);
         $password = htmlspecialchars($password);
 
@@ -85,15 +92,15 @@ class User extends Controller
         if (!empty($email) && !empty($password)) {
             $patternEmail = '/.+\@.+\..+/';
             $patternPassword = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/';
-            if (preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (password_verify($password, $newLogin['password']))) {
+            if (preg_match($patternEmail, $email) && preg_match($patternPassword, $password) && (password_verify($password, $newLogin->getPassword()))) {
                 if(session_status() !== PHP_SESSION_ACTIVE){
                     session_start();
                 }
-                $session['id'] = $newLogin['id'];
-                $session['firstname'] = $newLogin['firstname'];
-                $session['lastname'] = $newLogin['lastname'];
-                $session['email'] = $newLogin['email'];
-                $session['role'] = $newLogin['role'];
+                $session['id'] = $newLogin->getId();
+                $session['firstname'] = $newLogin->getFirstname();
+                $session['lastname'] = $newLogin->getLastname();
+                $session['email'] = $newLogin->getEmail();
+                $session['role'] = $newLogin->getRole();
 
                 $superglobals = new SuperGlobals();
                 $session1 = $superglobals->setSESSION($session);

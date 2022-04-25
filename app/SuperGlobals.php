@@ -1,6 +1,6 @@
 <?php
 
-namespace App\blog\Controller;
+namespace App\blog;
 
 class SuperGlobals
 {
@@ -13,18 +13,18 @@ class SuperGlobals
 
     public function __construct()
     {
-        $this->_GET = (isset($_GET)) ? $_GET : null;
-        $this->_POST = (isset($_POST)) ? $_POST : null;
+        $this->_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
+        $this->_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->_FILES = (isset($_FILES)) ? $_FILES : null;
         $this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
-        $this->_ENV = (isset($_ENV)) ? $_ENV : null;
-        $this->_SERVER = (isset($_SERVER)) ? $_SERVER : null;
+        $this->_ENV = filter_var_array($_ENV, FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->_SERVER = filter_input_array(INPUT_SERVER, FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
     }
 
     public function getGET($key = null): ?array
     {
-        if (null !== $key) {
-            return (isset($this->_GET["$key"])) ? $this->_GET["$key"] : null;
+        if (null !== $key) {    
+            return $this->_GET["$key"] ?? null;
         }
         return $this->_GET;
     }
@@ -32,7 +32,7 @@ class SuperGlobals
     public function getPOST($key = null)
     {
         if (null !== $key) {
-            return (isset($this->_POST["$key"])) ? $this->_POST["$key"] : null;
+            return $this->_POST["$key"] ?? null;
         }
         return $this->_POST;
     }

@@ -2,13 +2,14 @@
 
 namespace App\blog\Controller;
 
+use App\blog\SuperGlobals;
 use PHPMailer\PHPMailer\SMTP;
 use App\blog\Model\PostManager;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Symfony\Component\Dotenv\Dotenv;
 
-class SendMail extends Controller
+class SendMailController extends Controller
 {
     public function sendMail($lastname, $firstname, $email, $description)
     {

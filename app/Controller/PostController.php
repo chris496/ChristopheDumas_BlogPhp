@@ -2,12 +2,15 @@
 
 namespace App\blog\Controller;
 
+use App\blog\SuperGlobals;
 use Cocur\Slugify\Slugify;
+use App\blog\Entity\PostEntity;
+use App\blog\Entity\UserEntity;
 use App\blog\Model\PostManager;
 use App\blog\Model\UserManager;
 use App\blog\Model\CommentManager;
 
-class Post extends Controller
+class PostController extends Controller
 {
     //display all posts
     public function allPosts()
@@ -30,7 +33,6 @@ class Post extends Controller
         $url_slug = $this->UrlSlug();
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
-
         // display comments of post
         $commentsManager = new CommentManager();
         $comments = $commentsManager->getComments($id);
@@ -84,7 +86,18 @@ class Post extends Controller
             $user = $this->isAdmin();
             $id = $user['id'];
             $file = isset($file)?$file:'';
-            $postManager->createPost($id, $title, $chapo, $description, $file, $slug);
+
+            $userEntity = new UserEntity();
+            $user = $userEntity->setId($id);
+            
+            $postEntity = new PostEntity();
+            $post = $postEntity
+                ->setTitle($title)
+                ->setChapo($chapo)
+                ->setDescription($description)
+                ->setSlug($slug)
+                ->setPicture($file);
+            $postManager->createPost($user, $post);
             $posts = $postManager->getPosts();
             
             return $this->twig->display('index.html.twig', [
@@ -134,7 +147,7 @@ class Post extends Controller
         $url_slug = $this->UrlSlug();
 
         if (isset($files['photo']) && $files['photo']['error'] == 0) {
-            $fichier = $url_slug. '/uploads/' . $post['picture'];
+            $fichier = $url_slug. '/uploads/' . $post->getPicture();
             if (file_exists($fichier)) {
                 unlink($fichier);
             }
@@ -153,7 +166,13 @@ class Post extends Controller
         if (!empty($title) && !empty($chapo) && !empty($description)) {
             $user = $this->isAdmin();
             $file = isset($file)?$file:'';
-            $postManager->updatePost($id, $title, $chapo, $description, $file);
+            $postEntity = new PostEntity();
+            $post = $postEntity
+                ->setTitle($title)
+                ->setChapo($chapo)
+                ->setDescription($description)
+                ->setPicture($file);
+            $postManager->updatePost($id, $post);
             $posts = $postManager->getPosts();
             
             return $this->twig->display('index.html.twig', [
@@ -173,20 +192,13 @@ class Post extends Controller
     {
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
-
-        $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post['picture'];
+        $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post->getPicture();
         if (file_exists($fichier)) {
             unlink($fichier);
         }
 
         $postManager->deletePost($id);
         return header('Location: ../pageAdministration');
-        /*return $this->twig->display('administration.html.twig', [
-            'user' => $user,
-            'allUsers' => $allUsers,
-            'posts' => $posts,
-            'allComments' => $allComments
-        ]);*/
     }
 
     //delete a picture
@@ -194,8 +206,7 @@ class Post extends Controller
     {
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
-
-        $fichier = './uploads/' . $post['picture'];
+        $fichier = '/ChristopheDumas_BlogPhp/uploads/' . $post->getPicture();
         if (file_exists($fichier)) {
             unlink($fichier);
         }

@@ -1,11 +1,12 @@
 <?php
 //use PDO;
-use Symfony\Component\Dotenv\Dotenv;
+/*use Symfony\Component\Dotenv\Dotenv;
 use App\blog\Controller\SuperGlobals;
 
 function dbConnect()
 {
     $dotenv = new Dotenv();
+    
     $dotenv->load(__DIR__ . '/.env');
     
     $superglobals = new SuperGlobals();

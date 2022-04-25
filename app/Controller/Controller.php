@@ -3,9 +3,9 @@
 namespace App\blog\Controller;
 
 use Twig\Environment;
+use App\blog\SuperGlobals;
 use Twig\Loader\FilesystemLoader;
 use Symfony\Component\Dotenv\Dotenv;
-use App\blog\Controller\SuperGlobals;
 
 abstract class Controller
 {
